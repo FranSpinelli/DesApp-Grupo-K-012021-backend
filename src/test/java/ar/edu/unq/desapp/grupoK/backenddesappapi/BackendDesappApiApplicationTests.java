@@ -12,7 +12,7 @@ class BackendDesappApiApplicationTests {
     void basicTest() {
         //Test creado para ver si triggerea Travis
 
-        assertEquals(1,);
+        assertEquals(1,1);
     }
 
 }
