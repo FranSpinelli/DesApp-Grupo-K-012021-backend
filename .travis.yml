@@ -7,4 +7,6 @@ before_install:
   - chmod +x gradlew
 
 script:
+  - ./gradlew compileJava
+  - ./gradlew compileTestJava
   - ./gradlew test
