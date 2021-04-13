@@ -5,5 +5,5 @@ Proyecto Backend del Grupo K de la materia Desarrollo de Aplicaciones
 * Graciela Daglio
 * Francisco spinelli
 
-## Build Status:
+## Status:
 [![Build Status](https://travis-ci.com/FranSpinelli/DesApp-Grupo-K-012021-backend.svg?branch=master)](https://travis-ci.com/FranSpinelli/DesApp-Grupo-K-012021-backend)
