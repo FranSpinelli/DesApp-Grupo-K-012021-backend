@@ -5,6 +5,11 @@ jdk:
 
 before_install:
   - chmod +x gradlew
+  - sudo apt-get install jq
+  - wget -O ~/codacy-coverage-reporter-assembly-latest.jar $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r .assets[0].browser_download_url)
+
+after_success:
+  - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r build/reports/jacoco/test/jacocoTestReport.xml
 
 script:
   - ./gradlew compileJava
