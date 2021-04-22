@@ -6,17 +6,18 @@ public abstract class Title {
 
     private Integer id;
     private String originalTitle;
-    private Boolean isanAdultFilm;
+    private Boolean isAnAdultFilm;
     private Integer startYear;
     private Integer endYear;
     private Integer runtimeMinutes;
 
     public Title(Integer anID, String anOriginalTitle, Boolean anIsAdultIndicator, Integer aStartYear,
                  Integer anEndYear, Integer aRuntimeMinutesAmount) throws InvalidDatesError {
+
         if(isAValidStartYear(aStartYear) && isAValidEndYear(aStartYear, anEndYear)){
             this.id = anID;
             this.originalTitle = anOriginalTitle;
-            this.isanAdultFilm = anIsAdultIndicator;
+            this.isAnAdultFilm = anIsAdultIndicator;
             this.startYear = aStartYear;
             this.endYear = anEndYear;
             this.runtimeMinutes = aRuntimeMinutesAmount;
@@ -31,7 +32,7 @@ public abstract class Title {
         return originalTitle;
     }
 
-    public Boolean isAnAdultFilm() { return isanAdultFilm; }
+    public Boolean isAnAdultFilm() { return isAnAdultFilm; }
 
     public Integer getStartYear() { return startYear; }
 
