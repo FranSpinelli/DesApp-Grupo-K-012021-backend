@@ -31,17 +31,22 @@ jacoco {
 
 test {
     useJUnitPlatform()
-}
-
-test {
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
+
     reports {
         xml.enabled true
         csv.enabled false
         html.destination layout.buildDirectory.dir('jacocoHtml').get().asFile
     }
+
+    afterEvaluate {
+        classDirectories.setFrom(classDirectories.files.collect {
+            fileTree(dir: it, includes: ['model/**'])
+        })
+    }
+
 }
