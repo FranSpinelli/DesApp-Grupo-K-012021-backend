@@ -9,8 +9,9 @@ public abstract class FilmWorker {
     private String surname;
     private Integer birthYear;
     private Integer deathYear;
+    private String type;
 
-    public FilmWorker(Integer anId, String aName, String aSurname, Integer aBirthYear, Integer aDeathYear){
+    public FilmWorker(Integer anId, String aName, String aSurname, Integer aBirthYear, Integer aDeathYear, String aType){
 
         if(isAValidStartYear(aBirthYear) && isAValidEndYear(aBirthYear,aDeathYear)){
             this.id = anId;
@@ -18,8 +19,8 @@ public abstract class FilmWorker {
             this.surname = aSurname;
             this.birthYear = aBirthYear;
             this.deathYear = aDeathYear;
+            this.type = aType;
         }
-
     }
 
 
@@ -43,6 +44,10 @@ public abstract class FilmWorker {
         return deathYear;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -63,7 +68,10 @@ public abstract class FilmWorker {
         this.deathYear = deathYear;
     }
 
-    //Por qué privadas??????? hay duplicado de código con Title
+    public void setType(String type) {
+        this.type = type;
+    }
+
     private boolean isAValidStartYear(Integer aBirthYear) {
         Integer currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
