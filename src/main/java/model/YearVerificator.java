@@ -11,7 +11,12 @@ public class YearVerificator {
     }
 
     public boolean isAValidEndYearRegardToAStartYear(Integer aStartYear, Integer anEndYear) {
-
+        //anEndYear could be null
+        
+        if(anEndYear != null){
             return aStartYear - anEndYear <= 0;
+        }else{
+            return true;
+        }
     }
 }

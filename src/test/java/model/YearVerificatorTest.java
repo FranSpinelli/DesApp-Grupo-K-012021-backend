@@ -45,4 +45,12 @@ class YearVerificatorTest {
 
         assertFalse(verificator.isAValidEndYearRegardToAStartYear(2000, 1998));
     }
+
+    @Test
+    void anYearVerificatorKnowIfAnYearIsAValidEndYearRegardaAStartYearCASE3() {
+        //CASE 3: it receives null  as endYear
+        YearVerificator verificator = new YearVerificator();
+
+        assertTrue(verificator.isAValidEndYearRegardToAStartYear(2000, null));
+    }
 }
