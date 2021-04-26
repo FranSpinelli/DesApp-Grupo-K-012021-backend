@@ -21,6 +21,7 @@ public abstract class Title {
             this.startYear = aStartYear;
             this.endYear = anEndYear;
             this.runtimeMinutes = aRuntimeMinutesAmount;
+
         }else{
             throw new InvalidDatesError("Wrong dates passed as parameters");
         }
@@ -39,6 +40,34 @@ public abstract class Title {
     public Integer getEndYear() { return endYear; }
 
     public Integer getRuntimeMinutes() { return runtimeMinutes; }
+
+    public void setId(Integer id){
+        this.id = id;
+    }
+
+
+
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
+    public void setAnAdultFilm(Boolean anAdultFilm) {
+        isAnAdultFilm = anAdultFilm;
+    }
+
+    public void setEndYear(Integer endYear) {
+        this.endYear = endYear;
+    }
+
+    public void setRuntimeMinutes(Integer runtimeMinutes) {
+        this.runtimeMinutes = runtimeMinutes;
+    }
+
+    public void setStartYear(Integer startYear) {
+        this.startYear = startYear;
+    }
+
+
 
     //PRIVATE METHODS
     private boolean isAValidStartYear(Integer aStartYear) {
