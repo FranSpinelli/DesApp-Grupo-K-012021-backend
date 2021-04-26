@@ -2,14 +2,14 @@ package model;
 
 import java.util.Date;
 
-public class PremiumView {
+public abstract class PremiumView {
 
-        String extendedDescription;
-        String summaryDescription;
-        Float rating;
-        Date date;
-        String platform;
-        String language;
+        private String extendedDescription;
+        private String summaryDescription;
+        private Float rating;
+        private Date date;
+        private String platform;
+        private String language;
 
 
     public PremiumView(String aExtendedDescription, String aSumaryDescription, Float aRaiting, Date aDate,

@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class PublicReview extends PremiumView {
 
-    Boolean spoilerAlert;
-    String nickName;
-    String geographicPosition;
+    private Boolean spoilerAlert;
+    private String nickName;
+    private String geographicPosition;
 
 
     public PublicReview(String aExtendedDescription, String aSumaryDescription, Float aRaiting, Date aDate,
