@@ -2,14 +2,14 @@ package model;
 
 import java.util.Calendar;
 
-public abstract class FilmWorker {
+public class FilmWorker {
 
-    private Integer id;
-    private String name;
-    private String surname;
-    private Integer birthYear;
-    private Integer deathYear;
-    private String type;
+    public  Integer id;
+    public String name;
+    public String surname;
+    public Integer birthYear;
+    public Integer deathYear;
+    public String type;
 
     public FilmWorker(Integer anId, String aName, String aSurname, Integer aBirthYear, Integer aDeathYear, String aType){
 
@@ -72,13 +72,13 @@ public abstract class FilmWorker {
         this.type = type;
     }
 
-    private boolean isAValidStartYear(Integer aBirthYear) {
+    public boolean isAValidStartYear(Integer aBirthYear) {
         Integer currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
         return aBirthYear > 0 && aBirthYear <= currentYear;
     }
 
-    private boolean isAValidEndYear(Integer aBirthYear, Integer aDeathYear) {
+    public boolean isAValidEndYear(Integer aBirthYear, Integer aDeathYear) {
 
         if(aDeathYear != null){
             return aBirthYear - aDeathYear <= 0;
