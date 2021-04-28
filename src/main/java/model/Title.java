@@ -2,17 +2,18 @@ package model;
 
 import java.util.Calendar;
 
-public abstract class Title {
+public class Title {
 
-    private Integer id;
-    private String originalTitle;
-    private Boolean isAnAdultFilm;
-    private Integer startYear;
-    private Integer endYear;
-    private Integer runtimeMinutes;
+    public Integer id;
+    public String originalTitle;
+    public Boolean isAnAdultFilm;
+    public Integer startYear;
+    public Integer endYear;
+    public Integer runtimeMinutes;
+    public String type;
 
     public Title(Integer anID, String anOriginalTitle, Boolean anIsAdultIndicator, Integer aStartYear,
-                 Integer anEndYear, Integer aRuntimeMinutesAmount) throws InvalidDatesError {
+                 Integer anEndYear, Integer aRuntimeMinutesAmount, String aType) throws InvalidDatesError {
 
         YearVerificator yearVerificator = new YearVerificator();
 
@@ -24,6 +25,7 @@ public abstract class Title {
             this.startYear = aStartYear;
             this.endYear = anEndYear;
             this.runtimeMinutes = aRuntimeMinutesAmount;
+            this.type = aType;
 
         }else{
             throw new InvalidDatesError("Wrong dates passed as parameters");
@@ -43,6 +45,10 @@ public abstract class Title {
     public Integer getEndYear() { return endYear; }
 
     public Integer getRuntimeMinutes() { return runtimeMinutes; }
+
+    public String getType() {
+        return type;
+    }
 
     public void setId(Integer id){
         this.id = id;
@@ -66,5 +72,9 @@ public abstract class Title {
 
     public void setStartYear(Integer startYear) {
         this.startYear = startYear;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
