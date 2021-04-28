@@ -2,18 +2,18 @@ package model;
 
 import java.util.Date;
 
-public abstract class PremiumView {
+public class PremiumReview {
 
         private String extendedDescription;
         private String summaryDescription;
-        private Float rating;
+        private Double rating;
         private Date date;
         private String platform;
         private String language;
 
 
-    public PremiumView(String aExtendedDescription, String aSumaryDescription, Float aRaiting, Date aDate,
-                       String aPlatform, String aLenguage){
+    public PremiumReview(String aExtendedDescription, String aSumaryDescription, Double aRaiting, Date aDate,
+                         String aPlatform, String aLenguage){
 
         this.extendedDescription = aExtendedDescription;
         this.summaryDescription = aSumaryDescription;
@@ -32,7 +32,7 @@ public abstract class PremiumView {
         return summaryDescription;
     }
 
-    public Float getRating(){
+    public Double getRating(){
         return rating;
     }
 
@@ -56,7 +56,7 @@ public abstract class PremiumView {
         this.summaryDescription = summaryDescription;
     }
 
-    public void setRating(Float rating){
+    public void setRating(Double rating){
         this.rating = rating;
     }
 

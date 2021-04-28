@@ -2,7 +2,7 @@ package model;
 
 import java.util.Date;
 
-public class PublicReview extends PremiumView {
+public class PublicReview extends PremiumReview {
 
     private Boolean spoilerAlert;
     private String nickName;
