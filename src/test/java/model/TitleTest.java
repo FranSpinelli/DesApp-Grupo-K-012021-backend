@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class TitleTest {
 
     @Test
-    void TitleConstructorAndGettersTestCASE1() throws InvalidDatesError {
-        //CASE 1: no hay error con las fechas
+    void TitleConstructorAndGettersTestCase2() throws InvalidDatesError {
+
         Title aMovie = new Movie(1,"Titanic", false, 1998, null,100);
 
         assertEquals(aMovie.getId(), 1);
@@ -20,7 +20,8 @@ class TitleTest {
     }
 
     @Test
-    void TitleThrowsAnExceptionWhenInvalidDateIsReceived(){
+    void TitleThrowsAnExceptionWhenInvalidDateIsReceivedCase1(){
+        //CASE 1: a movie is created with a start year is smaller than 0
         assertThrows(InvalidDatesError.class, () -> {
         new Movie(1,"Titanic", false, 0, null,100);
         });
