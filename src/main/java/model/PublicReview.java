@@ -9,7 +9,7 @@ public class PublicReview extends PremiumReview {
     private String geographicPosition;
 
 
-    public PublicReview(String aExtendedDescription, String aSumaryDescription, Float aRaiting, Date aDate,
+    public PublicReview(String aExtendedDescription, String aSumaryDescription, Double aRaiting, Date aDate,
                         String aPlatform, String aLenguage, Boolean aSpoilerAlert, String aNickName,
                         String aGeogrephicPosition){
 
