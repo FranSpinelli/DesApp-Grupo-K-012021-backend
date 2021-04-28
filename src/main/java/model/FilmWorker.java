@@ -1,25 +1,27 @@
 package model;
 
-import java.util.Calendar;
-
 public class FilmWorker {
 
-    public  Integer id;
-    public String name;
-    public String surname;
-    public Integer birthYear;
-    public Integer deathYear;
-    public String type;
+    private  Integer id;
+    private String name;
+    private String surname;
+    private Integer birthYear;
+    private Integer deathYear;
+    private String type;
 
-    public FilmWorker(Integer anId, String aName, String aSurname, Integer aBirthYear, Integer aDeathYear, String aType){
+    public FilmWorker(Integer anId, String aName, String aSurname, Integer aBirthYear, Integer aDeathYear, String aType) throws InvalidDatesError {
 
-        if(isAValidStartYear(aBirthYear) && isAValidEndYear(aBirthYear,aDeathYear)){
+        YearVerificator yearVerificatior = new YearVerificator();
+
+        if(yearVerificatior.isAValidStartYear(aBirthYear) && yearVerificatior.isAValidEndYearRegardToAStartYear(aBirthYear,aDeathYear)){
             this.id = anId;
             this.name = aName;
             this.surname = aSurname;
             this.birthYear = aBirthYear;
             this.deathYear = aDeathYear;
             this.type = aType;
+        }else{
+            throw new InvalidDatesError("Wrong dates passed as parameters");
         }
     }
 
@@ -71,22 +73,6 @@ public class FilmWorker {
     public void setType(String type) {
         this.type = type;
     }
-
-    public boolean isAValidStartYear(Integer aBirthYear) {
-        Integer currentYear = Calendar.getInstance().get(Calendar.YEAR);
-
-        return aBirthYear > 0 && aBirthYear <= currentYear;
-    }
-
-    public boolean isAValidEndYear(Integer aBirthYear, Integer aDeathYear) {
-
-        if(aDeathYear != null){
-            return aBirthYear - aDeathYear <= 0;
-        }else{
-            return true;
-        }
-    }
-
 
 }
 

@@ -14,7 +14,10 @@ public abstract class Title {
     public Title(Integer anID, String anOriginalTitle, Boolean anIsAdultIndicator, Integer aStartYear,
                  Integer anEndYear, Integer aRuntimeMinutesAmount) throws InvalidDatesError {
 
-        if(isAValidStartYear(aStartYear) && isAValidEndYear(aStartYear, anEndYear)){
+        YearVerificator yearVerificator = new YearVerificator();
+
+        if(yearVerificator.isAValidStartYear(aStartYear) &&
+                yearVerificator.isAValidEndYearRegardToAStartYear(aStartYear, anEndYear)){
             this.id = anID;
             this.originalTitle = anOriginalTitle;
             this.isAnAdultFilm = anIsAdultIndicator;
@@ -45,8 +48,6 @@ public abstract class Title {
         this.id = id;
     }
 
-
-
     public void setOriginalTitle(String originalTitle) {
         this.originalTitle = originalTitle;
     }
@@ -65,23 +66,5 @@ public abstract class Title {
 
     public void setStartYear(Integer startYear) {
         this.startYear = startYear;
-    }
-
-
-
-    //PRIVATE METHODS
-    private boolean isAValidStartYear(Integer aStartYear) {
-        Integer currentYear = Calendar.getInstance().get(Calendar.YEAR);
-
-        return aStartYear > 0 && aStartYear <= currentYear;
-    }
-
-    private boolean isAValidEndYear(Integer aStartYear, Integer anEndYear) {
-
-        if(anEndYear != null){
-            return aStartYear - anEndYear <= 0;
-        }else{
-            return true;
-        }
     }
 }
