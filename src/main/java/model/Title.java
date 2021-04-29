@@ -2,7 +2,7 @@ package model;
 
 import java.util.Calendar;
 
-public abstract class Title {
+public class Title {
 
     private Integer id;
     private String originalTitle;
@@ -10,17 +10,23 @@ public abstract class Title {
     private Integer startYear;
     private Integer endYear;
     private Integer runtimeMinutes;
+    private String type;
 
     public Title(Integer anID, String anOriginalTitle, Boolean anIsAdultIndicator, Integer aStartYear,
-                 Integer anEndYear, Integer aRuntimeMinutesAmount) throws InvalidDatesError {
+                 Integer anEndYear, Integer aRuntimeMinutesAmount, String aType) throws InvalidDatesError {
 
-        if(isAValidStartYear(aStartYear) && isAValidEndYear(aStartYear, anEndYear)){
+        YearVerificator yearVerificator = new YearVerificator();
+
+        if(yearVerificator.isAValidStartYear(aStartYear) &&
+                yearVerificator.isAValidEndYearRegardToAStartYear(aStartYear, anEndYear)){
             this.id = anID;
             this.originalTitle = anOriginalTitle;
             this.isAnAdultFilm = anIsAdultIndicator;
             this.startYear = aStartYear;
             this.endYear = anEndYear;
             this.runtimeMinutes = aRuntimeMinutesAmount;
+            this.type = aType;
+
         }else{
             throw new InvalidDatesError("Wrong dates passed as parameters");
         }
@@ -40,19 +46,35 @@ public abstract class Title {
 
     public Integer getRuntimeMinutes() { return runtimeMinutes; }
 
-    //PRIVATE METHODS
-    private boolean isAValidStartYear(Integer aStartYear) {
-        Integer currentYear = Calendar.getInstance().get(Calendar.YEAR);
-
-        return aStartYear > 0 && aStartYear <= currentYear;
+    public String getType() {
+        return type;
     }
 
-    private boolean isAValidEndYear(Integer aStartYear, Integer anEndYear) {
+    public void setId(Integer id){
+        this.id = id;
+    }
 
-        if(anEndYear != null){
-            return aStartYear - anEndYear <= 0;
-        }else{
-            return true;
-        }
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
+    public void setAnAdultFilm(Boolean anAdultFilm) {
+        isAnAdultFilm = anAdultFilm;
+    }
+
+    public void setEndYear(Integer endYear) {
+        this.endYear = endYear;
+    }
+
+    public void setRuntimeMinutes(Integer runtimeMinutes) {
+        this.runtimeMinutes = runtimeMinutes;
+    }
+
+    public void setStartYear(Integer startYear) {
+        this.startYear = startYear;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

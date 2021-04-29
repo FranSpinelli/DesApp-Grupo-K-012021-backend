@@ -9,7 +9,7 @@ class TitleTest {
     @Test
     void TitleConstructorAndGettersTestCase2() throws InvalidDatesError {
 
-        Title aMovie = new Movie(1,"Titanic", false, 1998, null,100);
+        Title aMovie = new Title(1,"Titanic", false, 1998, null,100, "movie");
 
         assertEquals(aMovie.getId(), 1);
         assertEquals(aMovie.getOriginalTitle(), "Titanic");
@@ -17,29 +17,22 @@ class TitleTest {
         assertEquals(aMovie.getStartYear(), 1998);
         assertNull(aMovie.getEndYear());
         assertEquals(aMovie.getRuntimeMinutes(),100);
+        assertEquals(aMovie.getType(), "movie");
     }
 
     @Test
     void TitleThrowsAnExceptionWhenInvalidDateIsReceivedCase1(){
-        //CASE 1: a movie is created with a start year is smaller than 0
+        //CASE 1: a title is created with a start year is smaller than 0
         assertThrows(InvalidDatesError.class, () -> {
-        new Movie(1,"Titanic", false, 0, null,100);
+        new Title(1,"Titanic", false, 0, null,100, "movie");
         });
     }
 
     @Test
     void TitleThrowsAnExceptionWhenInvalidDateIsReceivedCase2(){
-        //CASE 2: a movie is created with a start year that it is in the future
+        //CASE 2: a title is created when an end year is bigger than current year
         assertThrows(InvalidDatesError.class, () -> {
-            new Movie(1,"Titanic", false, 2200, null,100);
-        });
-    }
-
-    @Test
-    void TitleThrowsAnExceptionWhenInvalidDateIsReceivedCase3(){
-        //CASE 3: a movie is created with an end year is before than the start year
-        assertThrows(InvalidDatesError.class, () -> {
-            new Movie(1,"Titanic", false, 1998, 1997,100);
+            new Title(1,"Titanic", false, 0, 2022,100, "movie");
         });
     }
 }
