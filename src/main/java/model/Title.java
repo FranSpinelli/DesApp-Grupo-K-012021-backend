@@ -4,13 +4,13 @@ import java.util.Calendar;
 
 public class Title {
 
-    public Integer id;
-    public String originalTitle;
-    public Boolean isAnAdultFilm;
-    public Integer startYear;
-    public Integer endYear;
-    public Integer runtimeMinutes;
-    public String type;
+    private Integer id;
+    private String originalTitle;
+    private Boolean isAnAdultFilm;
+    private Integer startYear;
+    private Integer endYear;
+    private Integer runtimeMinutes;
+    private String type;
 
     public Title(Integer anID, String anOriginalTitle, Boolean anIsAdultIndicator, Integer aStartYear,
                  Integer anEndYear, Integer aRuntimeMinutesAmount, String aType) throws InvalidDatesError {
