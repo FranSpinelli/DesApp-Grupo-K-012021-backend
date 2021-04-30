@@ -1,5 +1,7 @@
 package model;
 
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.InvalidDatesError;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Title;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

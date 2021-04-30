@@ -1,5 +1,6 @@
 package model;
 
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.YearVerificator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

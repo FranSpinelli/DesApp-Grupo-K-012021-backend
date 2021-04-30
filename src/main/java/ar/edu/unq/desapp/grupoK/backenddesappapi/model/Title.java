@@ -1,16 +1,32 @@
-package model;
+package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
 
-import java.util.Calendar;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "titles")
 public class Title {
 
+    @Id
     private Integer id;
+    @Column
     private String originalTitle;
+    @Column
     private Boolean isAnAdultFilm;
+    @Column
     private Integer startYear;
+    @Column
     private Integer endYear;
+    @Column
     private Integer runtimeMinutes;
+    @Column
     private String type;
+
+    public Title() {
+        super();
+    }
 
     public Title(Integer anID, String anOriginalTitle, Boolean anIsAdultIndicator, Integer aStartYear,
                  Integer anEndYear, Integer aRuntimeMinutesAmount, String aType) throws InvalidDatesError {

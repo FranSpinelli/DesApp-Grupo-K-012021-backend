@@ -1,0 +1,1 @@
+INSERT INTO titles (id, original_title, is_an_adult_film, start_year, runtime_minutes, type) VALUES (1, 'Titanic', true, 1997, 200, 'movie');
