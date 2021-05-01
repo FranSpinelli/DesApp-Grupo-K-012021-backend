@@ -74,7 +74,7 @@ public class Title {
         this.originalTitle = originalTitle;
     }
 
-    public void setAnAdultFilm(Boolean anAdultFilm) {
+    public void setIsAnAdultFilmIndicator(Boolean anAdultFilm) {
         isAnAdultFilm = anAdultFilm;
     }
 
