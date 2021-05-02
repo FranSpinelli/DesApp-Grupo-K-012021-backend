@@ -25,6 +25,7 @@ class PremiumReviewTest {
         assertEquals(aPremiumReview.getRating(), 2.0,0);
         assertEquals(aPremiumReview.getDate(), date);
         assertEquals(aPremiumReview.getSourcePlatform(), "platform");
+        assertEquals(aPremiumReview.getPlatformWriterID(), "P1");
         assertEquals(aPremiumReview.getLenguage(), "lenguague");
 
         LocalDate date2 = LocalDate.of(2020, 1, 2);
@@ -35,6 +36,7 @@ class PremiumReviewTest {
         aPremiumReview.setRating(3);
         aPremiumReview.setDate(date2);
         aPremiumReview.setSourcePlatform("platform2");
+        aPremiumReview.setPlatformWriterID("P2");
         aPremiumReview.setLenguage("lenguague2");
 
         assertEquals(aPremiumReview.getId(), 2);
@@ -43,6 +45,7 @@ class PremiumReviewTest {
         assertEquals(aPremiumReview.getRating(), 3.0,0);
         assertEquals(aPremiumReview.getDate(), date2);
         assertEquals(aPremiumReview.getSourcePlatform(), "platform2");
+        assertEquals(aPremiumReview.getPlatformWriterID(), "P2");
         assertEquals(aPremiumReview.getLenguage(), "lenguague2");
     }
 }

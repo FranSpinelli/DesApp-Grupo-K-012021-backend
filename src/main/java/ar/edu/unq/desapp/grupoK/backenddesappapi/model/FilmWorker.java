@@ -2,7 +2,7 @@ package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
 
 public class FilmWorker {
 
-    private  Integer id;
+    private Integer id;
     private String name;
     private String surname;
     private Integer birthYear;
