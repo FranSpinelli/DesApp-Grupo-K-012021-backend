@@ -1,5 +1,6 @@
 package model;
 
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PublicReview;
 import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
@@ -14,7 +15,7 @@ class PublicReviewTest {
     void PublicReviewConstructorGettersAndSettersTest(){
 
         java.util.Date date = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
-        PublicReview aPublicReview = new PublicReview("description", "desc", 2.0, date,
+        PublicReview aPublicReview = new PublicReview(1,"description", "desc", 2.0, date,
                 "platform", "lenguague", false, "nick", "position");
 
         assertEquals(aPublicReview.getSpoilerAlert(), false);

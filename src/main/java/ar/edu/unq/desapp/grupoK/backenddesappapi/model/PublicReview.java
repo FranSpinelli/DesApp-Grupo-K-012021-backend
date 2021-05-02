@@ -1,19 +1,25 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.util.Date;
 
+@Entity
 public class PublicReview extends PremiumReview {
 
+    @Column
     private Boolean spoilerAlert;
+    @Column
     private String nickName;
+    @Column
     private String geographicPosition;
 
 
-    public PublicReview(String aExtendedDescription, String aSumaryDescription, Double aRaiting, Date aDate,
+    public PublicReview(Integer anID, String aExtendedDescription, String aSumaryDescription, Double aRaiting, Date aDate,
                         String aPlatform, String aLenguage, Boolean aSpoilerAlert, String aNickName,
                         String aGeogrephicPosition){
 
-        super(aExtendedDescription, aSumaryDescription, aRaiting, aDate, aPlatform, aLenguage);
+        super(anID, aExtendedDescription, aSumaryDescription, aRaiting, aDate, aPlatform, aLenguage);
 
         this.spoilerAlert =  aSpoilerAlert;
         this.nickName = aNickName;

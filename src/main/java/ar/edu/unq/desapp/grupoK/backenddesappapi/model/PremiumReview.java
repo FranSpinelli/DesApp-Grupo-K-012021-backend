@@ -1,20 +1,32 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name="reviews")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class PremiumReview {
 
-        private String extendedDescription;
-        private String summaryDescription;
-        private Double rating;
-        private Date date;
-        private String platform;
-        private String language;
+    @Id
+    private Integer id;
+    @Column
+    private String extendedDescription;
+    @Column
+    private String summaryDescription;
+    @Column
+    private Double rating;
+    @Column
+    private Date date;
+    @Column
+    private String platform;
+    @Column
+    private String language;
 
-
-    public PremiumReview(String aExtendedDescription, String aSumaryDescription, Double aRaiting, Date aDate,
+    public PremiumReview(Integer anID, String aExtendedDescription, String aSumaryDescription, Double aRaiting, Date aDate,
                          String aPlatform, String aLenguage){
 
+        this.id = anID;
         this.extendedDescription = aExtendedDescription;
         this.summaryDescription = aSumaryDescription;
         this.rating = aRaiting;
@@ -23,6 +35,9 @@ public class PremiumReview {
         this.language = aLenguage;
     }
 
+    public Integer getId() {
+        return id;
+    }
 
     public String getExtendedDescription(){
         return extendedDescription;
@@ -46,6 +61,10 @@ public class PremiumReview {
 
     public String getLanguage(){
         return language;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setExtendedDescription(String extendedDescription) {

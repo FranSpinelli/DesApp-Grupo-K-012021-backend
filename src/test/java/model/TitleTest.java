@@ -1,8 +1,13 @@
 package model;
 
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.InvalidDatesError;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PremiumReview;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PublicReview;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Title;
 import org.junit.jupiter.api.Test;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -65,5 +70,21 @@ class TitleTest {
         assertEquals(aMovie.getEndYear(), 2010);
         assertEquals(aMovie.getRuntimeMinutes(),200);
         assertEquals(aMovie.getType(), "serie");
+    }
+
+    @Test
+    void TitleReviewsTest() throws InvalidDatesError {
+
+        Title aMovie = new Title(1,"Titanic", false, 1998, null,100, "movie");
+        java.util.Date date = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
+        PremiumReview review1 = new PremiumReview(1,"description", "desc", 2.0, date,
+                "platform","lenguague");
+        PublicReview review2 = new PublicReview(1,"description", "desc", 2.0, date,
+                "platform", "lenguague", false, "nick", "position");
+
+        aMovie.addReview(review1);
+        aMovie.addReview(review2);
+
+        assertEquals(aMovie.getReviews().size(), 2);
     }
 }

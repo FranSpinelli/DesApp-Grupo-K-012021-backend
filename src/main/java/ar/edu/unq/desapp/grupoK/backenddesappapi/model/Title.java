@@ -1,9 +1,8 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "titles")
@@ -24,6 +23,9 @@ public class Title {
     @Column
     private String type;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<PremiumReview> titleReviews;
+
     public Title() {
         super();
     }
@@ -42,7 +44,7 @@ public class Title {
             this.endYear = anEndYear;
             this.runtimeMinutes = aRuntimeMinutesAmount;
             this.type = aType;
-
+            this.titleReviews = new ArrayList<PremiumReview>();
         }else{
             throw new InvalidDatesError("Wrong dates passed as parameters");
         }
@@ -64,6 +66,10 @@ public class Title {
 
     public String getType() {
         return type;
+    }
+
+    public List<PremiumReview> getReviews(){
+     return this.titleReviews;
     }
 
     public void setId(Integer id){
@@ -92,5 +98,9 @@ public class Title {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void addReview(PremiumReview aReview){
+        this.titleReviews.add(aReview);
     }
 }

@@ -1,5 +1,6 @@
 package model;
 
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PremiumReview;
 import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
@@ -14,9 +15,10 @@ class PremiumReviewTest {
     void PremiumReviewConstructorGettersAndSettersTest(){
 
         java.util.Date date = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
-        PremiumReview aPremiumReview = new PremiumReview("description", "desc", 2.0, date,
+        PremiumReview aPremiumReview = new PremiumReview(1,"description", "desc", 2.0, date,
                 "platform","lenguague");
 
+        assertEquals(aPremiumReview.getId(), 1);
         assertEquals(aPremiumReview.getExtendedDescription(), "description");
         assertEquals(aPremiumReview.getSummaryDescription(), "desc");
         assertEquals(aPremiumReview.getRating(), 2.0,0);
@@ -26,6 +28,7 @@ class PremiumReviewTest {
 
         Date date2 = new GregorianCalendar(2015, Calendar.FEBRUARY, 11).getTime();
 
+        aPremiumReview.setId(2);
         aPremiumReview.setExtendedDescription("description2");
         aPremiumReview.setSummaryDescription("desc2");
         aPremiumReview.setRating(3.0);
@@ -33,6 +36,7 @@ class PremiumReviewTest {
         aPremiumReview.setPlatform("platform2");
         aPremiumReview.setLanguage("lenguague2");
 
+        assertEquals(aPremiumReview.getId(), 2);
         assertEquals(aPremiumReview.getExtendedDescription(), "description2");
         assertEquals(aPremiumReview.getSummaryDescription(), "desc2");
         assertEquals(aPremiumReview.getRating(), 3.0,0);
