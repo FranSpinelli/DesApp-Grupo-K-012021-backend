@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BackendDesappApiApplication {
 
     public static void main(String[] args) {
-        System.setProperty("server.servlet.context-path", "/re-seña/api");
+        System.setProperty("server.servlet.context-path", "/re-seña");
         SpringApplication.run(BackendDesappApiApplication.class, args);
     }
 }

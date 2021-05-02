@@ -26,9 +26,7 @@ public class Title {
     @OneToMany(fetch = FetchType.LAZY)
     private List<PremiumReview> titleReviews;
 
-    public Title() {
-        super();
-    }
+    public Title() {}
 
     public Title(Integer anID, String anOriginalTitle, Boolean anIsAdultIndicator, Integer aStartYear,
                  Integer anEndYear, Integer aRuntimeMinutesAmount, String aType) throws InvalidDatesError {

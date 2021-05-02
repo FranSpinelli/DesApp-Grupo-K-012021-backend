@@ -2,7 +2,7 @@ package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class PublicReview extends PremiumReview {
@@ -15,11 +15,14 @@ public class PublicReview extends PremiumReview {
     private String geographicPosition;
 
 
-    public PublicReview(Integer anID, String aExtendedDescription, String aSumaryDescription, Double aRaiting, Date aDate,
-                        String aPlatform, String aLenguage, Boolean aSpoilerAlert, String aNickName,
-                        String aGeogrephicPosition){
+    public PublicReview() {
+        super();
+    }
 
-        super(anID, aExtendedDescription, aSumaryDescription, aRaiting, aDate, aPlatform, aLenguage);
+    public PublicReview(String aExtendedDescription, String aSumaryDescription, Integer aRating, Boolean aSpoilerAlert, LocalDate aDate,
+                        String aSourcePlatform, String aPlatformUserID, String aNickName, String aLenguage, String aGeogrephicPosition){
+
+        super(aExtendedDescription, aSumaryDescription, aRating, aDate, aSourcePlatform, aPlatformUserID, aLenguage);
 
         this.spoilerAlert =  aSpoilerAlert;
         this.nickName = aNickName;

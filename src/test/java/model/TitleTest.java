@@ -6,6 +6,7 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PublicReview;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Title;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -76,11 +77,11 @@ class TitleTest {
     void TitleReviewsTest() throws InvalidDatesError {
 
         Title aMovie = new Title(1,"Titanic", false, 1998, null,100, "movie");
-        java.util.Date date = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
-        PremiumReview review1 = new PremiumReview(1,"description", "desc", 2.0, date,
-                "platform","lenguague");
-        PublicReview review2 = new PublicReview(1,"description", "desc", 2.0, date,
-                "platform", "lenguague", false, "nick", "position");
+        LocalDate date = LocalDate.parse("2020-01-01");
+        PremiumReview review1 = new PremiumReview("description", "desc", 2, date,
+                "platform", "AP1","language");
+        PublicReview review2 = new PublicReview( "description", "desc", 2, false,
+                date, "Netflix", "N12", "Frank442", "language", "Argentina");
 
         aMovie.addReview(review1);
         aMovie.addReview(review2);

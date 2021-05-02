@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="reviews")
@@ -9,30 +9,35 @@ import java.util.Date;
 public class PremiumReview {
 
     @Id
+    @GeneratedValue
     private Integer id;
     @Column
     private String extendedDescription;
     @Column
     private String summaryDescription;
     @Column
-    private Double rating;
+    private Integer rating;
     @Column
-    private Date date;
+    private LocalDate date;
     @Column
-    private String platform;
+    private String sourcePlatform;
     @Column
-    private String language;
+    private String platformWriterID;
+    @Column
+    private String lenguage;
 
-    public PremiumReview(Integer anID, String aExtendedDescription, String aSumaryDescription, Double aRaiting, Date aDate,
-                         String aPlatform, String aLenguage){
+    public PremiumReview() {}
 
-        this.id = anID;
+    public PremiumReview(String aExtendedDescription, String aSumaryDescription, Integer aRaiting, LocalDate aDate,
+                         String aSourcePlatform, String aPlatformWriterID, String aLenguage){
+
         this.extendedDescription = aExtendedDescription;
         this.summaryDescription = aSumaryDescription;
         this.rating = aRaiting;
         this.date = aDate;
-        this.platform = aPlatform;
-        this.language = aLenguage;
+        this.sourcePlatform = aSourcePlatform;
+        this.platformWriterID = aPlatformWriterID;
+        this.lenguage = aLenguage;
     }
 
     public Integer getId() {
@@ -47,20 +52,24 @@ public class PremiumReview {
         return summaryDescription;
     }
 
-    public Double getRating(){
+    public Integer getRating(){
         return rating;
     }
 
-    public Date getDate(){
+    public LocalDate getDate(){
         return date;
     }
 
-    public String getPlatform(){
-        return platform;
+    public String getSourcePlatform(){
+        return sourcePlatform;
     }
 
-    public String getLanguage(){
-        return language;
+    public String getPlatformWriterID() {
+        return platformWriterID;
+    }
+
+    public String getLenguage(){
+        return lenguage;
     }
 
     public void setId(Integer id) {
@@ -75,20 +84,24 @@ public class PremiumReview {
         this.summaryDescription = summaryDescription;
     }
 
-    public void setRating(Double rating){
+    public void setRating(Integer rating){
         this.rating = rating;
     }
 
-    public  void setDate(Date date){
+    public void setDate(LocalDate date){
         this.date = date;
     }
 
-    public void setPlatform(String platform) {
-        this.platform = platform;
+    public void setSourcePlatform(String sourcePlatform) {
+        this.sourcePlatform = sourcePlatform;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setLenguage(String lenguage) {
+        this.lenguage = lenguage;
+    }
+
+    public void setPlatformWriterID(String platformWriterID) {
+        this.platformWriterID = platformWriterID;
     }
 }
 

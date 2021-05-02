@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class TitleService {
@@ -19,8 +20,12 @@ public class TitleService {
         return this.repository.save(model);
     }
 
-    public Title findByID(Integer id) {
-        return this.repository.findById(id).get();
+    public Title findByID(Integer id) throws InexistentFilmWithIDError {
+        try{
+            return this.repository.findById(id).get();
+        }catch(NoSuchElementException e){
+            throw new InexistentFilmWithIDError("There is no Film with id: " + id);
+        }
     }
 
     public List<Title> findAll() {
