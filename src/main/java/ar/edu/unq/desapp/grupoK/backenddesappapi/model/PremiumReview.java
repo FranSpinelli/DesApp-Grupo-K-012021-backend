@@ -22,6 +22,11 @@ public class PremiumReview {
     private String platform;
     @Column
     private String language;
+    @Column
+    private Integer like;
+    @Column
+    private Integer dislike;
+
 
     public PremiumReview(Integer anID, String aExtendedDescription, String aSumaryDescription, Double aRaiting, Date aDate,
                          String aPlatform, String aLenguage){
@@ -33,6 +38,8 @@ public class PremiumReview {
         this.date = aDate;
         this.platform = aPlatform;
         this.language = aLenguage;
+        this.like= 0;
+        this.dislike = 0;
     }
 
     public Integer getId() {
@@ -90,5 +97,13 @@ public class PremiumReview {
     public void setLanguage(String language) {
         this.language = language;
     }
+
+    public void addLike() {like ++;}
+
+    public void addDislike() { dislike ++;}
+
+    public Integer getLike() { return like; }
+
+    public Integer getDislike() { return dislike;}
 }
 

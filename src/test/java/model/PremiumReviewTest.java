@@ -44,4 +44,21 @@ class PremiumReviewTest {
         assertEquals(aPremiumReview.getPlatform(), "platform2");
         assertEquals(aPremiumReview.getLanguage(), "lenguague2");
     }
+
+    @Test
+    void PremiumReviewConstructorLikesAndDislikesTest() {
+
+        java.util.Date date = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
+        PremiumReview aPremiumReview = new PremiumReview(1, "description", "desc", 2.0, date,
+                "platform", "lenguague");
+
+        aPremiumReview.addLike();
+        aPremiumReview.addLike();
+        aPremiumReview.addDislike();
+
+        assertEquals(aPremiumReview.getLike(), 2);
+        assertEquals(aPremiumReview.getDislike(), 1);
+
+    }
+
 }
