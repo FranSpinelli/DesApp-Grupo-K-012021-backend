@@ -48,4 +48,31 @@ class PremiumReviewTest {
         assertEquals(aPremiumReview.getPlatformWriterID(), "P2");
         assertEquals(aPremiumReview.getLenguage(), "lenguague2");
     }
+
+    @Test
+    void PremiumReviewGetLikeAndGetDislikeTest(){
+        LocalDate date = LocalDate.of(2020, 1, 1);
+        PremiumReview aPremiumReview = new PremiumReview("description", "desc", 2, date,
+                "platform", "P1","lenguague");
+
+        assertEquals(aPremiumReview.getLike(), 0);
+        assertEquals(aPremiumReview.getDislike(), 0);
+    }
+
+    @Test
+    void PremiumReviewAddLikeAndAddDislikeTest(){
+        LocalDate date = LocalDate.of(2020, 1, 1);
+        PremiumReview aPremiumReview = new PremiumReview("description", "desc", 2, date,
+                "platform", "P1","lenguague");
+
+        aPremiumReview.addLike();
+        aPremiumReview.addLike();
+        aPremiumReview.addLike();
+
+        aPremiumReview.addDislike();
+        aPremiumReview.addDislike();
+
+        assertEquals(aPremiumReview.getLike(), 3);
+        assertEquals(aPremiumReview.getDislike(), 2);
+    }
 }
