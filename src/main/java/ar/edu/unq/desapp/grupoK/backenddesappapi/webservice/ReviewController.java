@@ -109,4 +109,19 @@ public class ReviewController {
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity getAllReviews(@PathVariable("id") Integer id){  //id del title
+
+        try{
+            Title titleWithID = this.titleService.findByID(id);
+            List<PremiumReview> reviews = titleWithID.getReviews();
+
+            return ResponseEntity.status(200).body(reviews);
+
+        } catch(InexistentFilmWithIDError e){
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
+
+    }
 }

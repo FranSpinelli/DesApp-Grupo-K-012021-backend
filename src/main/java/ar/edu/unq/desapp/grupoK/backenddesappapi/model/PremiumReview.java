@@ -32,6 +32,10 @@ public class PremiumReview {
 
     public PremiumReview() {}
 
+
+
+
+
     public PremiumReview(String aExtendedDescription, String aSumaryDescription, Integer aRaiting, LocalDate aDate,
                          String aSourcePlatform, String aPlatformWriterID, String aLenguage){
 
@@ -127,3 +131,4 @@ public class PremiumReview {
     }
 }
 
+////Testear idTitle
