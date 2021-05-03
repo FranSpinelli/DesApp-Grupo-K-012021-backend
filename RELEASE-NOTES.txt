@@ -1,9 +1,14 @@
 ---------------------------------------------------------------------
-TAG XXXXXX
+TAG 1.0
 ---------------------------------------------------------------------
 NEW FEATURES (lo que están entregando y está funcionando):
-* xxx
-* xxx
+* Add public reviews.
+* Add premium reviews.
+* Like & Dislike reviews.
+* Search for a review by title id.
+* All Travis builds are going on.
+* App automatically deployed in Heroku (https://re-view-app.herokuapp.com/re-seña).
+* Test coverage over 90%.
 
 NOTES (ej: funcionalidad que falta, alguna consideración especial):
 * xxx

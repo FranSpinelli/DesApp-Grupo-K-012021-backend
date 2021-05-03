@@ -1,16 +1,32 @@
-package model;
+package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
 
-import java.util.Calendar;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name = "titles")
 public class Title {
 
+    @Id
     private Integer id;
+    @Column
     private String originalTitle;
+    @Column
     private Boolean isAnAdultFilm;
+    @Column
     private Integer startYear;
+    @Column
     private Integer endYear;
+    @Column
     private Integer runtimeMinutes;
+    @Column
     private String type;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<PremiumReview> titleReviews;
+
+    public Title() {}
 
     public Title(Integer anID, String anOriginalTitle, Boolean anIsAdultIndicator, Integer aStartYear,
                  Integer anEndYear, Integer aRuntimeMinutesAmount, String aType) throws InvalidDatesError {
@@ -26,7 +42,7 @@ public class Title {
             this.endYear = anEndYear;
             this.runtimeMinutes = aRuntimeMinutesAmount;
             this.type = aType;
-
+            this.titleReviews = new ArrayList<PremiumReview>();
         }else{
             throw new InvalidDatesError("Wrong dates passed as parameters");
         }
@@ -48,6 +64,10 @@ public class Title {
 
     public String getType() {
         return type;
+    }
+
+    public List<PremiumReview> getReviews(){
+     return this.titleReviews;
     }
 
     public void setId(Integer id){
@@ -76,5 +96,9 @@ public class Title {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void addReview(PremiumReview aReview){
+        this.titleReviews.add(aReview);
     }
 }
