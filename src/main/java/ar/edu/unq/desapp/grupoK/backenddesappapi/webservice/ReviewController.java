@@ -110,7 +110,7 @@ public class ReviewController {
         }
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/review/{id}")
     public ResponseEntity getAllReviews(@PathVariable("id") Integer id){  //id del title
 
         try{
@@ -122,6 +122,5 @@ public class ReviewController {
         } catch(InexistentFilmWithIDError e){
             return ResponseEntity.status(400).body(e.getMessage());
         }
-
     }
 }
