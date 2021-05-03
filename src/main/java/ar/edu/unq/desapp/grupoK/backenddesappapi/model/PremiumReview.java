@@ -25,6 +25,10 @@ public class PremiumReview {
     private String platformWriterID;
     @Column
     private String lenguage;
+    @Column
+    private Integer nmbrLike;
+    @Column
+    private Integer nmbrDislike;
 
     public PremiumReview() {}
 
@@ -38,6 +42,8 @@ public class PremiumReview {
         this.sourcePlatform = aSourcePlatform;
         this.platformWriterID = aPlatformWriterID;
         this.lenguage = aLenguage;
+        this.nmbrLike = 0;
+        this.nmbrDislike = 0;
     }
 
     public Integer getId() {
@@ -72,6 +78,14 @@ public class PremiumReview {
         return lenguage;
     }
 
+    public Integer getLike() {
+        return nmbrLike;
+    }
+
+    public Integer getDislike() {
+        return nmbrDislike;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -102,6 +116,14 @@ public class PremiumReview {
 
     public void setPlatformWriterID(String platformWriterID) {
         this.platformWriterID = platformWriterID;
+    }
+
+    public void addLike(){
+        this.nmbrLike++;
+    }
+
+    public void addDislike(){
+        this.nmbrDislike++;
     }
 }
 

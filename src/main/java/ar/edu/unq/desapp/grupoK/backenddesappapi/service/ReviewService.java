@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ReviewService {
@@ -20,8 +21,12 @@ public class ReviewService {
         return this.repository.save(model);
     }
 
-    public PremiumReview findByID(Integer id) {
-        return this.repository.findById(id).get();
+    public PremiumReview findByID(Integer id) throws InexistentReviewWithIDError {
+        try{
+            return this.repository.findById(id).get();
+        }catch(NoSuchElementException e){
+            throw new InexistentReviewWithIDError("There is no Review with id: " + id);
+        }
     }
     public List<PremiumReview> findAllPremiumReviews(){
         return this.repository.findAllPremiumreviews();

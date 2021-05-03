@@ -4,6 +4,7 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PremiumReview;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PublicReview;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.InexistentFilmWithIDError;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.InexistentReviewWithIDError;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.ReviewService;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.TitleService;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOError;
@@ -12,9 +13,7 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PublicReviewDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -78,6 +77,35 @@ public class ReviewController {
             titleService.save(titleWithID);
             return ResponseEntity.status(200).body(saved);
         }catch(InexistentFilmWithIDError | EmptyDTOError | RepeatedReviewException e){
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/review/like")
+    public ResponseEntity likePremiumReview(@RequestParam Integer id) {  //id de la review que se quiere darle like
+
+        try {
+            PremiumReview review = reviewService.findByID(id);
+            review.addLike();
+            PremiumReview saved = reviewService.save(review);
+            return ResponseEntity.status(200).body(saved);
+
+        } catch (InexistentReviewWithIDError e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/review/dislike")
+    public ResponseEntity disLikePremiumReview(@RequestParam Integer id){  //id de la review que se quiere darle like
+
+        try{
+            PremiumReview review = reviewService.findByID(id);
+            review.addDislike();
+            PremiumReview saved = reviewService.save(review);
+            return ResponseEntity.status(200).body(saved);
+
+        }
+        catch(InexistentReviewWithIDError e){
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
