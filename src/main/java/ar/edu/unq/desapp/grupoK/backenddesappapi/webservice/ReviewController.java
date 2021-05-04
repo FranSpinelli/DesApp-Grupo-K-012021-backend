@@ -10,6 +10,8 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.service.TitleService;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOError;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PremiumReviewDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PublicReviewDTO;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,9 @@ public class ReviewController {
     private TitleService titleService;
 
     @PostMapping("/premiumReview")
+    @ApiOperation(value = "Post a new Premium Review",
+                    notes = "Provide a Title id and the Premium Review data",
+                    response = PremiumReview.class)
     public ResponseEntity addNewPremiumReview(@RequestBody PremiumReviewDTO premiumReviewDTO){
 
         try {
@@ -54,6 +59,9 @@ public class ReviewController {
     }
 
     @PostMapping("/publicReview")
+    @ApiOperation(value = "Post a new Public Review",
+            notes = "Provide a Title id and the Public Review data",
+            response = PublicReview.class)
     public ResponseEntity addNewPublicReview(@RequestBody PublicReviewDTO publicReviewDTO){
 
         try {
@@ -82,7 +90,10 @@ public class ReviewController {
     }
 
     @PutMapping("/review/like")
-    public ResponseEntity likePremiumReview(@RequestParam Integer id) {  //id de la review que se quiere darle like
+    @ApiOperation(value = "Like Review",
+            notes = "Provide the Review id you want to like",
+            response = Integer.class)
+    public ResponseEntity likePremiumReview(@RequestParam Integer id) {
 
         try {
             PremiumReview review = reviewService.findByID(id);
@@ -96,7 +107,10 @@ public class ReviewController {
     }
 
     @PutMapping("/review/dislike")
-    public ResponseEntity disLikePremiumReview(@RequestParam Integer id){  //id de la review que se quiere darle like
+    @ApiOperation(value = "Dislike Review",
+            notes = "Provide the Review id you want to dislike",
+            response = Integer.class)
+    public ResponseEntity disLikePremiumReview(@RequestParam Integer id){
 
         try{
             PremiumReview review = reviewService.findByID(id);
@@ -111,7 +125,10 @@ public class ReviewController {
     }
 
     @GetMapping(value = "/review/{id}")
-    public ResponseEntity getAllReviews(@PathVariable("id") Integer id){  //id del title
+    @ApiOperation(value = "Get all the reviews of a specific Title",
+            notes = "Provide the Title id in order to get its reviews")
+    public ResponseEntity getAllReviews(@ApiParam(value = "ID value for the Title's reviews you are interested in", required = true)
+                                            @PathVariable("id") Integer id){
 
         try{
             Title titleWithID = this.titleService.findByID(id);
