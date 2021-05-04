@@ -15,5 +15,5 @@ NOTES (ej: funcionalidad que falta, alguna consideración especial):
 * xxx
 
 KNOWN ISSUES (ej: funcionalidad que saben que están funcionando diferente, algún error conocido en la funcionalidad terminada, etc) :
-* xxx
-* xxx
+* Move all the logic inside the controller to its service.
+* Represent Title type with an enum.
