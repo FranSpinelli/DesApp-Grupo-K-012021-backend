@@ -4,9 +4,6 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PremiumReview;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,7 +23,7 @@ class PremiumReviewTest {
         assertEquals(aPremiumReview.getDate(), date);
         assertEquals(aPremiumReview.getSourcePlatform(), "platform");
         assertEquals(aPremiumReview.getPlatformWriterID(), "P1");
-        assertEquals(aPremiumReview.getLenguage(), "lenguague");
+        assertEquals(aPremiumReview.getLanguage(), "lenguague");
 
         LocalDate date2 = LocalDate.of(2020, 1, 2);
 
@@ -37,7 +34,7 @@ class PremiumReviewTest {
         aPremiumReview.setDate(date2);
         aPremiumReview.setSourcePlatform("platform2");
         aPremiumReview.setPlatformWriterID("P2");
-        aPremiumReview.setLenguage("lenguague2");
+        aPremiumReview.setLanguage("lenguague2");
 
         assertEquals(aPremiumReview.getId(), 2);
         assertEquals(aPremiumReview.getExtendedDescription(), "description2");
@@ -46,7 +43,7 @@ class PremiumReviewTest {
         assertEquals(aPremiumReview.getDate(), date2);
         assertEquals(aPremiumReview.getSourcePlatform(), "platform2");
         assertEquals(aPremiumReview.getPlatformWriterID(), "P2");
-        assertEquals(aPremiumReview.getLenguage(), "lenguague2");
+        assertEquals(aPremiumReview.getLanguage(), "lenguague2");
     }
 
     @Test

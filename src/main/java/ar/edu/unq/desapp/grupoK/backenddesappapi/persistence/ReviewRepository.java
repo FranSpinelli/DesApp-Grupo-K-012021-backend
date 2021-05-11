@@ -19,10 +19,4 @@ public interface ReviewRepository extends CrudRepository<PremiumReview, Integer>
         Optional<PremiumReview> findById(Integer id);
 
         List<PremiumReview> findAll();
-
-        @Query(value = "SELECT * FROM reviews WHERE dtype = 'PremiumReview'", nativeQuery = true)
-        List<PremiumReview> findAllPremiumreviews();
-
-        @Query(value = "SELECT * FROM reviews WHERE dtype = 'PublicReview'", nativeQuery = true)
-        List<PublicReview> findAllPublicReviews();
 }

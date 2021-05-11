@@ -20,11 +20,11 @@ public class TitleService {
         return this.repository.save(model);
     }
 
-    public Title findByID(Integer id) throws InexistentFilmWithIDError {
+    public Title findByID(Integer id) throws InexistentTitleWithIDError {
         try{
             return this.repository.findById(id).get();
         }catch(NoSuchElementException e){
-            throw new InexistentFilmWithIDError("There is no Film with id: " + id);
+            throw new InexistentTitleWithIDError("There is no Film with id: " + id);
         }
     }
 
