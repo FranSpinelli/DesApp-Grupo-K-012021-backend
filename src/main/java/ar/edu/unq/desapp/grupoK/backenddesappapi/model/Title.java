@@ -24,7 +24,7 @@ public class Title {
     private String type;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private List<PremiumReview> titleReviews;
+    private List<Review> titleReviews;
 
     public Title() {}
 
@@ -42,7 +42,7 @@ public class Title {
             this.endYear = anEndYear;
             this.runtimeMinutes = aRuntimeMinutesAmount;
             this.type = aType;
-            this.titleReviews = new ArrayList<PremiumReview>();
+            this.titleReviews = new ArrayList<Review>();
         }else{
             throw new InvalidDatesError("Wrong dates passed as parameters");
         }
@@ -66,7 +66,7 @@ public class Title {
         return type;
     }
 
-    public List<PremiumReview> getReviews(){
+    public List<Review> getReviews(){
      return this.titleReviews;
     }
 
@@ -98,7 +98,7 @@ public class Title {
         this.type = type;
     }
 
-    public void addReview(PremiumReview aReview){
+    public void addReview(Review aReview){
         this.titleReviews.add(aReview);
     }
 }

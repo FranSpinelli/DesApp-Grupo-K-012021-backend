@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import java.time.LocalDate;
 
 @Entity
-public class PublicReview extends PremiumReview {
+public class PublicReview extends Review {
 
     @Column
     private Boolean spoilerAlert;

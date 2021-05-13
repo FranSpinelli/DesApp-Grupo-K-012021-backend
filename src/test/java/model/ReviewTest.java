@@ -1,19 +1,20 @@
 package model;
 
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PremiumReview;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Review;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PremiumReviewTest {
+class ReviewTest {
 
     @Test
     void PremiumReviewConstructorGettersAndSettersTest(){
 
         LocalDate date = LocalDate.of(2020, 1, 1);
-        PremiumReview aPremiumReview = new PremiumReview("description", "desc", 2, date,
+        Review aPremiumReview = new PremiumReview("description", "desc", 2, date,
                 "platform", "P1","lenguague");
 
         assertNull(aPremiumReview.getId());
@@ -49,7 +50,7 @@ class PremiumReviewTest {
     @Test
     void PremiumReviewGetLikeAndGetDislikeTest(){
         LocalDate date = LocalDate.of(2020, 1, 1);
-        PremiumReview aPremiumReview = new PremiumReview("description", "desc", 2, date,
+        Review aPremiumReview = new PremiumReview("description", "desc", 2, date,
                 "platform", "P1","lenguague");
 
         assertEquals(aPremiumReview.getLike(), 0);
@@ -59,7 +60,7 @@ class PremiumReviewTest {
     @Test
     void PremiumReviewAddLikeAndAddDislikeTest(){
         LocalDate date = LocalDate.of(2020, 1, 1);
-        PremiumReview aPremiumReview = new PremiumReview("description", "desc", 2, date,
+        Review aPremiumReview = new PremiumReview("description", "desc", 2, date,
                 "platform", "P1","lenguague");
 
         aPremiumReview.addLike();

@@ -74,4 +74,3 @@ INSERT INTO titles_title_reviews (title_id, title_reviews_id) values
     (9,18),
     (10,19),
     (10,20);
-

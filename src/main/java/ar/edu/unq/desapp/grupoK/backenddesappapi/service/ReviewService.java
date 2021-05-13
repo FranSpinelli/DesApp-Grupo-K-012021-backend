@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.service;
 
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PremiumReview;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PublicReview;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ReviewRepository;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Collection;
 import java.util.NoSuchElementException;
 
 @Service
@@ -33,15 +34,15 @@ public class ReviewService {
 
             Title titleWithID = findTitleByID(premiumReviewDTO.getTitleID());
 
-            checkForRepeatedPremiumReviewInTitle(titleWithID, premiumReviewDTO.getPlatformWriterID(), premiumReviewDTO.getSourcePlatform());
+            checkForRepeatedPremiumReviewInTitle(titleWithID.getId(), premiumReviewDTO.getPlatformWriterID(), premiumReviewDTO.getSourcePlatform());
 
             LocalDate currentDate = LocalDate.now();
-            PremiumReview aPremiumReview = new PremiumReview(premiumReviewDTO.getExtendedDescription(), premiumReviewDTO.getSummaryDescription(),
+            Review aPremiumReview = new PremiumReview(premiumReviewDTO.getExtendedDescription(), premiumReviewDTO.getSummaryDescription(),
                     premiumReviewDTO.getRating(), currentDate, premiumReviewDTO.getSourcePlatform(), premiumReviewDTO.getPlatformWriterID(),
                     premiumReviewDTO.getLanguage());
 
             titleWithID.addReview(aPremiumReview);
-            PremiumReview savedReview = reviewRepository.save(aPremiumReview);
+            Review savedReview = reviewRepository.save(aPremiumReview);
             titleRepository.save(titleWithID);
 
             return ResponseEntity.ok().body(savedReview);
@@ -58,16 +59,16 @@ public class ReviewService {
 
             Title titleWithID = findTitleByID(publicReviewDTO.getTitleID());
 
-            checkForRepeatedPublicReviewInTitle(titleWithID, publicReviewDTO.getPlatformWriterID(), publicReviewDTO.getNickName(), publicReviewDTO.getSourcePlatform());
+            checkForRepeatedPublicReviewInTitle(titleWithID.getId(), publicReviewDTO.getPlatformWriterID(), publicReviewDTO.getNickName(), publicReviewDTO.getSourcePlatform());
 
             LocalDate currentDate = LocalDate.now();
-            PremiumReview aPublicReview = new PublicReview(publicReviewDTO.getExtendedDescription(), publicReviewDTO.getSummaryDescription(),
+            Review aPublicReview = new PublicReview(publicReviewDTO.getExtendedDescription(), publicReviewDTO.getSummaryDescription(),
                     publicReviewDTO.getRating(), publicReviewDTO.getSpoilerAlert(), currentDate, publicReviewDTO.getSourcePlatform(),
                     publicReviewDTO.getPlatformWriterID(), publicReviewDTO.getNickName(), publicReviewDTO.getLanguage(),
                     publicReviewDTO.getGeographicPosition());
 
             titleWithID.addReview(aPublicReview);
-            PremiumReview savedReview = reviewRepository.save(aPublicReview);
+            Review savedReview = reviewRepository.save(aPublicReview);
             titleRepository.save(titleWithID);
             return ResponseEntity.ok().body(savedReview);
         }catch (RepeatedReviewException | InexistentTitleWithIDError | EmptyDTOError  e){
@@ -79,9 +80,9 @@ public class ReviewService {
     public ResponseEntity likePremiumReview(Integer id) {
 
         try{
-            PremiumReview review = findReviewByID(id);
+            Review review = findReviewByID(id);
             review.addLike();
-            PremiumReview savedReview = reviewRepository.save(review);
+            Review savedReview = reviewRepository.save(review);
             return ResponseEntity.ok().body(savedReview);
         }catch(InexistentReviewWithIDError e){
             return ResponseEntity.status(400).body(e.getMessage());
@@ -92,9 +93,9 @@ public class ReviewService {
     public ResponseEntity disLikePremiumReview(Integer id){
 
         try{
-            PremiumReview review = findReviewByID(id);
+            Review review = findReviewByID(id);
             review.addDislike();
-            PremiumReview savedReview = reviewRepository.save(review);
+            Review savedReview = reviewRepository.save(review);
             return ResponseEntity.ok().body(savedReview);
         } catch (InexistentReviewWithIDError e) {
             return ResponseEntity.status(400).body(e.getMessage());
@@ -114,26 +115,29 @@ public class ReviewService {
 
     //-------------------------------------------------------------------------------------------
 
-    private void checkForRepeatedPremiumReviewInTitle(Title aTitle, String aPlatformWriterID, String aSourcePlatform) throws RepeatedReviewException {
+    private void checkForRepeatedPremiumReviewInTitle(Integer aTitleID, String aPlatformWriterID, String aSourcePlatform) throws RepeatedReviewException {
 
-        if(aTitle.getReviews().stream()
-                .anyMatch(review -> review.getPlatformWriterID().equals(aPlatformWriterID) &&
+        Collection<PremiumReview> premiumReviews = reviewRepository.getPremiumReviewsForTitleWithID(aTitleID);
+
+        if(premiumReviews.stream().anyMatch( review -> review.getPlatformWriterID().equals(aPlatformWriterID) &&
                 review.getSourcePlatform().equals(aSourcePlatform))){
             throw new RepeatedReviewException("There is already a review in that Title of a writer with that id from that platform");
         }
     }
 
-    private void checkForRepeatedPublicReviewInTitle(Title aTitle, String aPlatformWriterID, String aNickName, String aSourcePlatform)
+    private void checkForRepeatedPublicReviewInTitle(Integer aTitleID, String aPlatformWriterID, String aNickName, String aSourcePlatform)
             throws RepeatedReviewException {
 
-        if(aTitle.getReviews().stream().anyMatch(review -> review.getPlatformWriterID().equals(aPlatformWriterID) &&
+        Collection<PublicReview> premiumReviews = reviewRepository.getPublicReviewsForTitleWithID(aTitleID);
+
+        if(premiumReviews.stream().anyMatch( review -> review.getPlatformWriterID().equals(aPlatformWriterID) &&
                 review.getNickName().equals(aNickName) &&
-                review.getSourcePlatform().equals(aSourcePlatform))) {
+                review.getSourcePlatform().equals(aSourcePlatform))){
             throw new RepeatedReviewException("There is already a review in that Title of a writer with that id from that platform");
         }
     }
 
-    private PremiumReview findReviewByID(Integer id) throws InexistentReviewWithIDError {
+    private Review findReviewByID(Integer id) throws InexistentReviewWithIDError {
         try{
             return this.reviewRepository.findById(id).get();
         }catch(NoSuchElementException e){

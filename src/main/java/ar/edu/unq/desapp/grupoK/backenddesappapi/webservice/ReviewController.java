@@ -3,7 +3,6 @@ package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PremiumReview;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PublicReview;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.*;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOError;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PremiumReviewDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PublicReviewDTO;
 import io.swagger.annotations.ApiOperation;
