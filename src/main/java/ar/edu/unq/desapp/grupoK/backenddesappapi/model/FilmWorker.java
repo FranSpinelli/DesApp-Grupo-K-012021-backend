@@ -1,15 +1,29 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "filmworkers")
 public class FilmWorker {
 
+    @Id
     private Integer id;
+    @Column
     private String name;
+    @Column
     private String surname;
+    @Column
     private Integer birthYear;
+    @Column
     private Integer deathYear;
-    private String type;
 
-    public FilmWorker(Integer anId, String aName, String aSurname, Integer aBirthYear, Integer aDeathYear, String aType) throws InvalidDatesError {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "filmworker_category_id")
+    private FilmWorkerCategory category;
+
+    public FilmWorker() {}
+
+    public FilmWorker(Integer anId, String aName, String aSurname, Integer aBirthYear, Integer aDeathYear, FilmWorkerCategory aCategory) throws InvalidDatesError {
 
         YearVerificator yearVerificatior = new YearVerificator();
 
@@ -19,7 +33,7 @@ public class FilmWorker {
             this.surname = aSurname;
             this.birthYear = aBirthYear;
             this.deathYear = aDeathYear;
-            this.type = aType;
+            this.category = aCategory;
         }else{
             throw new InvalidDatesError("Wrong dates passed as parameters");
         }
@@ -46,8 +60,8 @@ public class FilmWorker {
         return deathYear;
     }
 
-    public String getType() {
-        return type;
+    public String getCategory() {
+        return category.getCategoryName();
     }
 
     public void setId(Integer id) {
@@ -69,11 +83,6 @@ public class FilmWorker {
     public void setDeathYear(Integer deathYear) {
         this.deathYear = deathYear;
     }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
 }
 
 

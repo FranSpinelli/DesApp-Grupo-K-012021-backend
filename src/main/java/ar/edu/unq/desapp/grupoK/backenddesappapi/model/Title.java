@@ -22,11 +22,14 @@ public class Title {
     private Integer runtimeMinutes;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "title_category_id")
     private TitleCategory category;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Review> titleReviews;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<FilmWorker> titleFilmworkers;
 
     public Title() {}
 
