@@ -20,8 +20,10 @@ public class Title {
     private Integer endYear;
     @Column
     private Integer runtimeMinutes;
-    @Column
-    private String type;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private TitleCategory category;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Review> titleReviews;
@@ -29,7 +31,7 @@ public class Title {
     public Title() {}
 
     public Title(Integer anID, String anOriginalTitle, Boolean anIsAdultIndicator, Integer aStartYear,
-                 Integer anEndYear, Integer aRuntimeMinutesAmount, String aType) throws InvalidDatesError {
+                 Integer anEndYear, Integer aRuntimeMinutesAmount, TitleCategory aTitleCategory) throws InvalidDatesError {
 
         YearVerificator yearVerificator = new YearVerificator();
 
@@ -41,8 +43,8 @@ public class Title {
             this.startYear = aStartYear;
             this.endYear = anEndYear;
             this.runtimeMinutes = aRuntimeMinutesAmount;
-            this.type = aType;
             this.titleReviews = new ArrayList<Review>();
+            this.category = aTitleCategory;
         }else{
             throw new InvalidDatesError("Wrong dates passed as parameters");
         }
@@ -62,12 +64,12 @@ public class Title {
 
     public Integer getRuntimeMinutes() { return runtimeMinutes; }
 
-    public String getType() {
-        return type;
-    }
-
     public List<Review> getReviews(){
      return this.titleReviews;
+    }
+
+    public String getCategory() {
+        return category.getCategoryName();
     }
 
     public void setId(Integer id){
@@ -92,10 +94,6 @@ public class Title {
 
     public void setStartYear(Integer startYear) {
         this.startYear = startYear;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public void addReview(Review aReview){

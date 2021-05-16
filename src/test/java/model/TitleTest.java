@@ -12,7 +12,8 @@ class TitleTest {
     @Test
     void TitleConstructorAndGettersTestCase2() throws InvalidDatesError {
 
-        Title aMovie = new Title(1,"Titanic", false, 1998, null,100, "movie");
+        TitleCategory aCategory = new TitleCategory(1, "movie");
+        Title aMovie = new Title(1,"Titanic", false, 1998, null,100, aCategory);
 
         assertEquals(aMovie.getId(), 1);
         assertEquals(aMovie.getOriginalTitle(), "Titanic");
@@ -20,14 +21,15 @@ class TitleTest {
         assertEquals(aMovie.getStartYear(), 1998);
         assertNull(aMovie.getEndYear());
         assertEquals(aMovie.getRuntimeMinutes(),100);
-        assertEquals(aMovie.getType(), "movie");
+        assertEquals(aMovie.getCategory(), "movie");
     }
 
     @Test
     void TitleThrowsAnExceptionWhenInvalidDateIsReceivedCase1(){
         //CASE 1: a title is created with a start year is smaller than 0
         assertThrows(InvalidDatesError.class, () -> {
-        new Title(1,"Titanic", false, 0, null,100, "movie");
+            TitleCategory aCategory = new TitleCategory(1, "movie");
+            new Title(1,"Titanic", false, 0, null,100, aCategory);
         });
     }
 
@@ -35,13 +37,15 @@ class TitleTest {
     void TitleThrowsAnExceptionWhenInvalidDateIsReceivedCase2(){
         //CASE 2: a title is created when an end year is bigger than current year
         assertThrows(InvalidDatesError.class, () -> {
-            new Title(1,"Titanic", false, 0, 2022,100, "movie");
+            TitleCategory aCategory = new TitleCategory(1, "movie");
+            new Title(1,"Titanic", false, 0, 2022,100, aCategory);
         });
     }
 
     @Test
     void TitleSettersTest() throws InvalidDatesError {
-        Title aMovie = new Title(1,"Titanic", false, 1998, null,100, "movie");
+        TitleCategory aCategory = new TitleCategory(1, "movie");
+        Title aMovie = new Title(1,"Titanic", false, 1998, null,100, aCategory);
 
         assertEquals(aMovie.getId(), 1);
         assertEquals(aMovie.getOriginalTitle(), "Titanic");
@@ -49,7 +53,7 @@ class TitleTest {
         assertEquals(aMovie.getStartYear(), 1998);
         assertNull(aMovie.getEndYear());
         assertEquals(aMovie.getRuntimeMinutes(),100);
-        assertEquals(aMovie.getType(), "movie");
+        assertEquals(aMovie.getCategory(), "movie");
 
         aMovie.setId(2);
         aMovie.setOriginalTitle("Harry Potter");
@@ -57,7 +61,6 @@ class TitleTest {
         aMovie.setStartYear(2000);
         aMovie.setEndYear(2010);
         aMovie.setRuntimeMinutes(200);
-        aMovie.setType("serie");
 
         assertEquals(aMovie.getId(), 2);
         assertEquals(aMovie.getOriginalTitle(), "Harry Potter");
@@ -65,13 +68,13 @@ class TitleTest {
         assertEquals(aMovie.getStartYear(), 2000);
         assertEquals(aMovie.getEndYear(), 2010);
         assertEquals(aMovie.getRuntimeMinutes(),200);
-        assertEquals(aMovie.getType(), "serie");
     }
 
     @Test
     void TitleReviewsTest() throws InvalidDatesError {
 
-        Title aMovie = new Title(1,"Titanic", false, 1998, null,100, "movie");
+        TitleCategory aCategory = new TitleCategory(1, "movie");
+        Title aMovie = new Title(1,"Titanic", false, 1998, null,100, aCategory);
         LocalDate date = LocalDate.parse("2020-01-01");
         Review review1 = new PremiumReview("description", "desc", 2, date,
                 "platform", "AP1","language");

@@ -8,9 +8,9 @@ import java.time.LocalDate;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Review {
 
-    @TableGenerator(name = "ID_Generator", initialValue = 20)
+    @TableGenerator(name = "Review_ID_Generator", initialValue = 20)
     @Id
-    @GeneratedValue(generator = "ID_Generator")
+    @GeneratedValue(generator = "Review_ID_Generator")
     private Integer id;
     @Column
     private String extendedDescription;
