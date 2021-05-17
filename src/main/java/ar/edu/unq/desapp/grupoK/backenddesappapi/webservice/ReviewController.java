@@ -5,6 +5,7 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PublicReview;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.*;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PremiumReviewDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PublicReviewDTO;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ReportDTO;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class ReviewController {
 
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private ReportService reportService;
 
     @PostMapping("/premiumReview")
     @ApiOperation(value = "Post a new Premium Review",
@@ -49,6 +52,11 @@ public class ReviewController {
                     response = Integer.class)
     public ResponseEntity disLikePremiumReview(@RequestParam Integer id){
         return reviewService.disLikePremiumReview(id);
+    }
+
+    @PostMapping("/review/report")
+    public ResponseEntity reportReview(@RequestBody ReportDTO reportDTO){
+        return reportService.addNewReport(reportDTO);
     }
 
     @GetMapping(value = "/review/{id}")

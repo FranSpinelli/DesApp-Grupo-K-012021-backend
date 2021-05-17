@@ -2,6 +2,9 @@ package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name="reviews")
@@ -31,6 +34,9 @@ public abstract class Review {
     @Column
     private Integer nmbrDislike;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Report> reports;
+
     public Review() {}
 
     public Review(String aExtendedDescription, String aSumaryDescription, Integer aRaiting, LocalDate aDate,
@@ -45,6 +51,7 @@ public abstract class Review {
         this.language = aLanguage;
         this.nmbrLike = 0;
         this.nmbrDislike = 0;
+        reports = new ArrayList<Report>();
     }
 
     public Integer getId() {
@@ -125,6 +132,14 @@ public abstract class Review {
 
     public void addDislike(){
         this.nmbrDislike++;
+    }
+
+    public void addReport(Report aReport) {
+        this.reports.add(aReport);
+    }
+
+    public Collection<Report> getReports() {
+        return reports;
     }
 }
 

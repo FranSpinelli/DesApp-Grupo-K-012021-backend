@@ -1,6 +1,7 @@
 package model;
 
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PremiumReview;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Report;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Review;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +26,7 @@ class ReviewTest {
         assertEquals(aPremiumReview.getSourcePlatform(), "platform");
         assertEquals(aPremiumReview.getPlatformWriterID(), "P1");
         assertEquals(aPremiumReview.getLanguage(), "lenguague");
+        assertEquals(aPremiumReview.getReports().size(), 0);
 
         LocalDate date2 = LocalDate.of(2020, 1, 2);
 
@@ -72,5 +74,19 @@ class ReviewTest {
 
         assertEquals(aPremiumReview.getLike(), 3);
         assertEquals(aPremiumReview.getDislike(), 2);
+    }
+
+    @Test
+    void ReviewAddReportTest(){
+        LocalDate date = LocalDate.of(2020, 1, 1);
+        Review aPremiumReview = new PremiumReview("description", "desc", 2, date,
+                "platform", "P1","lenguague");
+
+        assertEquals(aPremiumReview.getReports().size(), 0);
+
+        Report aReport = new Report("aCause", "netflix", "n12", "fran");
+        aPremiumReview.addReport(aReport);
+
+        assertEquals(aPremiumReview.getReports().size(), 1);
     }
 }
