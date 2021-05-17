@@ -3,7 +3,9 @@ package ar.edu.unq.desapp.grupoK.backenddesappapi.service;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Report;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ReportRepository;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ReviewRepository;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.AbstractService;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentReviewWithIDError;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedReportException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOError;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ReportDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +14,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
-import java.util.NoSuchElementException;
 
 @Service
-public class ReportService {
+public class ReportService extends AbstractService {
 
     @Autowired
     private ReportRepository reportRepository;
-
-    @Autowired
-    private ReviewRepository reviewRepository;
 
     @Transactional
     public ResponseEntity addNewReport(ReportDTO reportDTO) {
@@ -53,14 +51,6 @@ public class ReportService {
                         report.getReporterNickName().equals(aReporterNickName) &&
                         report.getSourcePlatform().equals(aSourcePlatform))){
             throw new RepeatedReportException("There is already a report in that Review of a writer with that id from that platform");
-        }
-    }
-
-    private Review findReviewByID(Integer id) throws InexistentReviewWithIDError {
-        try{
-            return this.reviewRepository.findById(id).get();
-        }catch(NoSuchElementException e){
-            throw new InexistentReviewWithIDError("There is no Review with id: " + id);
         }
     }
 }

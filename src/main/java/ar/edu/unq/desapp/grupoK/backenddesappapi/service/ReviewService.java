@@ -6,6 +6,10 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PublicReview;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ReviewRepository;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.TitleRepository;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.AbstractService;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentReviewWithIDError;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentTitleWithIDError;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedReviewException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOError;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PremiumReviewDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PublicReviewDTO;
@@ -19,12 +23,7 @@ import java.util.Collection;
 import java.util.NoSuchElementException;
 
 @Service
-public class ReviewService {
-
-    @Autowired
-    private ReviewRepository reviewRepository;
-    @Autowired
-    private TitleRepository titleRepository;
+public class ReviewService extends AbstractService {
 
     @Transactional
     public ResponseEntity addNewPremiumReview(PremiumReviewDTO premiumReviewDTO) {
@@ -134,23 +133,6 @@ public class ReviewService {
                 review.getNickName().equals(aNickName) &&
                 review.getSourcePlatform().equals(aSourcePlatform))){
             throw new RepeatedReviewException("There is already a review in that Title of a writer with that id from that platform");
-        }
-    }
-
-    private Review findReviewByID(Integer id) throws InexistentReviewWithIDError {
-        try{
-            return this.reviewRepository.findById(id).get();
-        }catch(NoSuchElementException e){
-            throw new InexistentReviewWithIDError("There is no Review with id: " + id);
-        }
-    }
-
-    private Title findTitleByID(Integer id) throws InexistentTitleWithIDError {
-
-        try{
-            return titleRepository.findById(id).get();
-        }catch(NoSuchElementException e){
-            throw new InexistentTitleWithIDError("There is no Review with id: " + id);
         }
     }
 }
