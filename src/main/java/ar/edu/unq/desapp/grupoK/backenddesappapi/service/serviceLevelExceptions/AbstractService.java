@@ -28,7 +28,7 @@ public abstract class AbstractService {
         try{
             return titleRepository.findById(id).get();
         }catch(NoSuchElementException e){
-            throw new InexistentTitleWithIDError("There is no Review with id: " + id);
+            throw new InexistentTitleWithIDError("There is no Title with id: " + id);
         }
     }
 }
