@@ -1,12 +1,11 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.service;
 
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PremiumReview;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PublicReview;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Title;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentReviewWithIDException;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentTitleWithIDException;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedReviewException;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementWithIDException;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOError;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PremiumReviewDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PublicReviewDTO;
@@ -40,7 +39,7 @@ public class ReviewService extends AbstractService {
             titleRepository.save(titleWithID);
 
             return ResponseEntity.ok().body(savedReview);
-        }catch(RepeatedReviewException | InexistentTitleWithIDException | EmptyDTOError e){
+        }catch(RepeatedElementException | InexistentElementWithIDException | EmptyDTOError e){
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
@@ -65,7 +64,7 @@ public class ReviewService extends AbstractService {
             Review savedReview = reviewRepository.save(aPublicReview);
             titleRepository.save(titleWithID);
             return ResponseEntity.ok().body(savedReview);
-        }catch (RepeatedReviewException | InexistentTitleWithIDException | EmptyDTOError  e){
+        }catch (RepeatedElementException | InexistentElementWithIDException | EmptyDTOError  e){
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
@@ -78,7 +77,7 @@ public class ReviewService extends AbstractService {
             review.addLike();
             Review savedReview = reviewRepository.save(review);
             return ResponseEntity.ok().body(savedReview);
-        }catch(InexistentReviewWithIDException e){
+        }catch(InexistentElementWithIDException e){
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
@@ -91,7 +90,7 @@ public class ReviewService extends AbstractService {
             review.addDislike();
             Review savedReview = reviewRepository.save(review);
             return ResponseEntity.ok().body(savedReview);
-        } catch (InexistentReviewWithIDException e) {
+        } catch (InexistentElementWithIDException e) {
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
@@ -102,32 +101,32 @@ public class ReviewService extends AbstractService {
             Title titleWithID = findTitleByID(id);
 
             return ResponseEntity.ok().body(titleWithID.getReviews());
-        } catch (InexistentTitleWithIDException e) {
+        } catch (InexistentElementWithIDException e) {
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
 
     //-------------------------------------------------------------------------------------------
 
-    private void checkForRepeatedPremiumReviewInTitle(Integer aTitleID, String aPlatformWriterID, String aSourcePlatform) throws RepeatedReviewException {
+    private void checkForRepeatedPremiumReviewInTitle(Integer aTitleID, String aPlatformWriterID, String aSourcePlatform) throws RepeatedElementException {
 
         Collection<PremiumReview> premiumReviews = reviewRepository.getPremiumReviewsForTitleWithID(aTitleID);
 
         if(premiumReviews.stream().anyMatch( review -> review.getPlatformWriterID().equals(aPlatformWriterID) &&
                 review.getSourcePlatform().equals(aSourcePlatform))){
-            throw new RepeatedReviewException("There is already a review in that Title of a writer with that id from that platform");
+            throw new RepeatedElementException("There is already a review in that Title of a writer with that id from that platform");
         }
     }
 
     private void checkForRepeatedPublicReviewInTitle(Integer aTitleID, String aPlatformWriterID, String aNickName, String aSourcePlatform)
-            throws RepeatedReviewException {
+            throws RepeatedElementException {
 
         Collection<PublicReview> premiumReviews = reviewRepository.getPublicReviewsForTitleWithID(aTitleID);
 
         if(premiumReviews.stream().anyMatch( review -> review.getPlatformWriterID().equals(aPlatformWriterID) &&
                 review.getNickName().equals(aNickName) &&
                 review.getSourcePlatform().equals(aSourcePlatform))){
-            throw new RepeatedReviewException("There is already a review in that Title of a writer with that id from that platform");
+            throw new RepeatedElementException("There is already a review in that Title of a writer with that id from that platform");
         }
     }
 }

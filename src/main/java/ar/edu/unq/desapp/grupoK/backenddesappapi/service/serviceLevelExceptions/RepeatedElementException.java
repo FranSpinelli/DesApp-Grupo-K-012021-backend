@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions;
 
-public class RepeatedReportException extends Throwable {
-    public RepeatedReportException(String s) {
+public class RepeatedElementException extends Throwable {
+    public RepeatedElementException(String s) {
         super(s);
     }
 }

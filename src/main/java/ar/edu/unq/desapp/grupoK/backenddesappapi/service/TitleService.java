@@ -2,7 +2,7 @@ package ar.edu.unq.desapp.grupoK.backenddesappapi.service;
 
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.TitleRepository;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentTitleWithIDException;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementWithIDException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,11 +21,11 @@ public class TitleService {
         return this.repository.save(model);
     }
 
-    public Title findByID(Integer id) throws InexistentTitleWithIDException {
+    public Title findByID(Integer id) throws InexistentElementWithIDException {
         try{
             return this.repository.findById(id).get();
         }catch(NoSuchElementException e){
-            throw new InexistentTitleWithIDException("There is no Film with id: " + id);
+            throw new InexistentElementWithIDException("There is no Film with id: " + id);
         }
     }
 
