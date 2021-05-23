@@ -2,8 +2,7 @@ package ar.edu.unq.desapp.grupoK.backenddesappapi.service;
 
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.ClientPlatform;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ClientPlatformRepository;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.ClientPlatformLoginException;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.NameAlreadyInUseException;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.ClientAccesException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOError;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.LoginDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.RegisterDTO;
@@ -34,7 +33,7 @@ public class ClientPlatformService {
 
             return ResponseEntity.ok().body(newClientPlatform);
 
-        } catch (NameAlreadyInUseException | EmptyDTOError e) {
+        } catch (ClientAccesException | EmptyDTOError e) {
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
@@ -47,11 +46,11 @@ public class ClientPlatformService {
             ClientPlatform clientPlatformWithName = clientPlatformRepository.findByName(loginDTO.getClientPlatformName());
 
             if(clientPlatformWithName == null || ! clientPlatformWithName.canLogInWithGivenPass(loginDTO.getPassword())){
-                throw new ClientPlatformLoginException();
+                throw new ClientAccesException("Incorrect name or password");
             }
 
             return ResponseEntity.ok().body(clientPlatformWithName);
-        }catch(ClientPlatformLoginException | EmptyDTOError e){
+        }catch(ClientAccesException | EmptyDTOError e){
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
@@ -63,9 +62,9 @@ public class ClientPlatformService {
         return uuidAsString;
     }
 
-    private void isThereAPlatformWithSameName(String clientPlatformName) throws NameAlreadyInUseException {
+    private void isThereAPlatformWithSameName(String clientPlatformName) throws ClientAccesException {
 
         ClientPlatform clientWithName = clientPlatformRepository.findByName(clientPlatformName);
-        if(clientWithName != null){throw new NameAlreadyInUseException();}
+        if(clientWithName != null){throw new ClientAccesException("The provided name is already in use");}
     }
 }
