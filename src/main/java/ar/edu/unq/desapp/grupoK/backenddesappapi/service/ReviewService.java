@@ -4,23 +4,18 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PremiumReview;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PublicReview;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Title;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ReviewRepository;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.TitleRepository;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.AbstractService;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentReviewWithIDError;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentTitleWithIDError;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentReviewWithIDException;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentTitleWithIDException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedReviewException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOError;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PremiumReviewDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PublicReviewDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.NoSuchElementException;
 
 @Service
 public class ReviewService extends AbstractService {
@@ -45,7 +40,7 @@ public class ReviewService extends AbstractService {
             titleRepository.save(titleWithID);
 
             return ResponseEntity.ok().body(savedReview);
-        }catch(RepeatedReviewException | InexistentTitleWithIDError | EmptyDTOError e){
+        }catch(RepeatedReviewException | InexistentTitleWithIDException | EmptyDTOError e){
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
@@ -70,7 +65,7 @@ public class ReviewService extends AbstractService {
             Review savedReview = reviewRepository.save(aPublicReview);
             titleRepository.save(titleWithID);
             return ResponseEntity.ok().body(savedReview);
-        }catch (RepeatedReviewException | InexistentTitleWithIDError | EmptyDTOError  e){
+        }catch (RepeatedReviewException | InexistentTitleWithIDException | EmptyDTOError  e){
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
@@ -83,7 +78,7 @@ public class ReviewService extends AbstractService {
             review.addLike();
             Review savedReview = reviewRepository.save(review);
             return ResponseEntity.ok().body(savedReview);
-        }catch(InexistentReviewWithIDError e){
+        }catch(InexistentReviewWithIDException e){
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
@@ -96,7 +91,7 @@ public class ReviewService extends AbstractService {
             review.addDislike();
             Review savedReview = reviewRepository.save(review);
             return ResponseEntity.ok().body(savedReview);
-        } catch (InexistentReviewWithIDError e) {
+        } catch (InexistentReviewWithIDException e) {
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
@@ -107,7 +102,7 @@ public class ReviewService extends AbstractService {
             Title titleWithID = findTitleByID(id);
 
             return ResponseEntity.ok().body(titleWithID.getReviews());
-        } catch (InexistentTitleWithIDError e) {
+        } catch (InexistentTitleWithIDException e) {
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }

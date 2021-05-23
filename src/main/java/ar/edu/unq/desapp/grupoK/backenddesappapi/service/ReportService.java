@@ -3,8 +3,7 @@ package ar.edu.unq.desapp.grupoK.backenddesappapi.service;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Report;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ReportRepository;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.AbstractService;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentReviewWithIDError;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentReviewWithIDException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedReportException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOError;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ReportDTO;
@@ -39,7 +38,7 @@ public class ReportService extends AbstractService {
             reviewRepository.save(reviewWithID);
 
             return ResponseEntity.ok().body(savedReport);
-        }catch(RepeatedReportException | InexistentReviewWithIDError | EmptyDTOError e) {
+        }catch(RepeatedReportException | InexistentReviewWithIDException | EmptyDTOError e) {
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
