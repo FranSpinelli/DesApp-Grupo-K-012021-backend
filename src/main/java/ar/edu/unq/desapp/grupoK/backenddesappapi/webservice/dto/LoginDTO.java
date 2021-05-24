@@ -18,13 +18,13 @@ public class LoginDTO {
         return password;
     }
 
-    public void assertEmpty() throws EmptyDTOError {
+    public void assertEmpty() throws EmptyDTOException {
         if(password == null || clientPlatformName == null){
-            throw new EmptyDTOError("Wrong json received as parameter");
+            throw new EmptyDTOException("Wrong json received as parameter");
         }
 
         if(password.equals("") || clientPlatformName.equals("")){
-            throw new EmptyDTOError("There is an empty field in the body json");
+            throw new EmptyDTOException("There is an empty field in the body json");
         }
     }
 }

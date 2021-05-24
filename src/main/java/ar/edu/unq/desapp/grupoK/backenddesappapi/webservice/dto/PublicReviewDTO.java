@@ -72,16 +72,16 @@ public class PublicReviewDTO extends PremiumReviewDTO{
         return geographicPosition;
     }
 
-    public void assertEmpty() throws EmptyDTOError {
+    public void assertEmpty() throws EmptyDTOException {
         if(getTitleID()== null || getExtendedDescription() == null || getSummaryDescription() == null || getRating() == null ||
                 getSourcePlatform() == null || getPlatformWriterID() == null || getLanguage() == null || spoilerAlert == null ||
                 nickName == null || geographicPosition == null){
-            throw new EmptyDTOError("Wrong json received as parameter");
+            throw new EmptyDTOException("Wrong json received as parameter");
         }
 
         if(getExtendedDescription().isEmpty() || getSummaryDescription().isEmpty() || getSourcePlatform().isEmpty() ||
                 getPlatformWriterID().isEmpty() || getLanguage().isEmpty() || this.nickName.isEmpty() || this.geographicPosition.isEmpty()){
-            throw new EmptyDTOError("There is an empty field in the body json");
+            throw new EmptyDTOException("There is an empty field in the body json");
         }
     }
 }

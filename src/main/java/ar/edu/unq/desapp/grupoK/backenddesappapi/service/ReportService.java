@@ -3,9 +3,9 @@ package ar.edu.unq.desapp.grupoK.backenddesappapi.service;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Report;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ReportRepository;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementWithIDException;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedElementException;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOError;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ReportDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,26 +21,22 @@ public class ReportService extends AbstractService {
     private ReportRepository reportRepository;
 
     @Transactional
-    public ResponseEntity addNewReport(ReportDTO reportDTO) {
+    public ResponseEntity addNewReport(ReportDTO reportDTO) throws EmptyDTOException, InexistentElementException, RepeatedElementException {
 
-        try {
-            reportDTO.assertEmpty();
+        reportDTO.assertEmpty();
 
-            Review reviewWithID = findReviewByID(reportDTO.getReviewID());
+        Review reviewWithID = findReviewByID(reportDTO.getReviewID());
 
-            checkForRepeatedReportInReview(reviewWithID, reportDTO.getPlatformReporterID(), reportDTO.getReporterNickName(), reportDTO.getSourcePlatform());
+        checkForRepeatedReportInReview(reviewWithID, reportDTO.getPlatformReporterID(), reportDTO.getReporterNickName(), reportDTO.getSourcePlatform());
 
-            Report aReport = new Report(reportDTO.getReportCause(), reportDTO.getSourcePlatform(), reportDTO.getPlatformReporterID(),
+        Report aReport = new Report(reportDTO.getReportCause(), reportDTO.getSourcePlatform(), reportDTO.getPlatformReporterID(),
                     reportDTO.getReporterNickName());
 
-            reviewWithID.addReport(aReport);
-            Report savedReport = reportRepository.save(aReport);
-            reviewRepository.save(reviewWithID);
+        reviewWithID.addReport(aReport);
+        Report savedReport = reportRepository.save(aReport);
+        reviewRepository.save(reviewWithID);
 
-            return ResponseEntity.ok().body(savedReport);
-        }catch(RepeatedElementException | InexistentElementWithIDException | EmptyDTOError e) {
-            return ResponseEntity.status(400).body(e.getMessage());
-        }
+        return ResponseEntity.ok().body(savedReport);
     }
 
     private void checkForRepeatedReportInReview(Review aReview, String aPlatformReporterID, String aReporterNickName, String aSourcePlatform) throws RepeatedElementException {

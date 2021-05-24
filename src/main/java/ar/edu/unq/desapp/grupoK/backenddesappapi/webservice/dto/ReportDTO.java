@@ -59,16 +59,16 @@ public class ReportDTO {
         this.reporterNickName = reporterNickName;
     }
 
-    public void assertEmpty() throws EmptyDTOError {
+    public void assertEmpty() throws EmptyDTOException {
 
         if(this.reviewID == null || this.reportCause == null || this.reporterNickName == null ||
                 this.platformReporterID == null || this.sourcePlatform == null){
-            throw new EmptyDTOError("Wrong json received as parameter");
+            throw new EmptyDTOException("Wrong json received as parameter");
         }
 
         if(this.reportCause.isEmpty() || this.reporterNickName.isEmpty() || this.platformReporterID.isEmpty() ||
             this.sourcePlatform.isEmpty()){
-            throw new EmptyDTOError("There is an empty field in the body json");
+            throw new EmptyDTOException("There is an empty field in the body json");
         }
     }
 }

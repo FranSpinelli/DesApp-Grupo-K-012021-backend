@@ -10,4 +10,6 @@ import java.util.List;
 public interface ClientPlatformRepository extends JpaRepository<ClientPlatform, Integer> {
 
     ClientPlatform findByName(String name);
+
+    ClientPlatform findByApiKey(String apiKey);
 }

@@ -24,14 +24,14 @@ public class RegisterDTO {
         return contactMail;
     }
 
-    public void assertEmpty() throws EmptyDTOError {
+    public void assertEmpty() throws EmptyDTOException {
 
         if(clientPlatformName == null || password == null || contactMail == null){
-            throw new EmptyDTOError("Wrong json received as parameter");
+            throw new EmptyDTOException("Wrong json received as parameter");
         }
 
         if(clientPlatformName.equals("") || password.equals("") || contactMail.equals("")){
-            throw new EmptyDTOError("There is an empty field in the body json");
+            throw new EmptyDTOException("There is an empty field in the body json");
         }
     }
 }

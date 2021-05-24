@@ -51,16 +51,16 @@ public class PremiumReviewDTO {
         return language;
     }
 
-    public void assertEmpty() throws EmptyDTOError {
+    public void assertEmpty() throws EmptyDTOException {
 
         if(titleID == null || extendedDescription == null || summaryDescription == null || rating == null || sourcePlatform == null ||
         platformWriterID == null || language == null){
-            throw new EmptyDTOError("Wrong json received as parameter");
+            throw new EmptyDTOException("Wrong json received as parameter");
         }
 
         if(this.extendedDescription.isEmpty() || this.summaryDescription.isEmpty() || this.sourcePlatform.isEmpty() ||
                 this.platformWriterID.isEmpty() || this.language.isEmpty()){
-            throw new EmptyDTOError("There is an empty field in the body json");
+            throw new EmptyDTOException("There is an empty field in the body json");
         }
     }
 }
