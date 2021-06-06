@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.UUID;
 
 @Service
@@ -26,7 +27,9 @@ public class ClientPlatformService {
 
         String generatedApiKey = generateApiKey();
 
-        ClientPlatform newClientPlatform = new ClientPlatform(registerDTO.getClientPlatformName(), registerDTO.getPassword(), registerDTO.getContactMail(),
+        String encodedPassword = Base64.getEncoder().encodeToString(registerDTO.getPassword().getBytes());
+
+        ClientPlatform newClientPlatform = new ClientPlatform(registerDTO.getClientPlatformName(), encodedPassword, registerDTO.getContactMail(),
                     generatedApiKey);
         clientPlatformRepository.save(newClientPlatform);
 
@@ -39,7 +42,9 @@ public class ClientPlatformService {
 
         ClientPlatform clientPlatformWithName = clientPlatformRepository.findByName(loginDTO.getClientPlatformName());
 
-        if(clientPlatformWithName == null || ! clientPlatformWithName.canLogInWithGivenPass(loginDTO.getPassword())){
+        String encodedPassword = Base64.getEncoder().encodeToString(loginDTO.getPassword().getBytes());
+
+        if(clientPlatformWithName == null || ! clientPlatformWithName.canLogInWithGivenPass(encodedPassword)){
             throw new ClientAccessException("Incorrect name or password");
         }
 

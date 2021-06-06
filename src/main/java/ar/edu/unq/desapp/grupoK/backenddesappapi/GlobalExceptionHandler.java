@@ -1,8 +1,9 @@
-package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice;
+package ar.edu.unq.desapp.grupoK.backenddesappapi;
 
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.ClientAccessException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedElementException;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.WrongApiKeyException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

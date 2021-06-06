@@ -90,7 +90,7 @@ public class ReviewService extends AbstractService {
 
     private void checkForRepeatedPremiumReviewInTitle(Integer aTitleID, String aPlatformWriterID, String aSourcePlatform) throws RepeatedElementException {
 
-        Collection<PremiumReview> premiumReviews = reviewRepository.getPremiumReviewsForTitleWithID(aTitleID);
+        Collection<Review> premiumReviews = reviewRepository.getPremiumReviewsForTitleWithID(aTitleID);
 
         if(premiumReviews.stream().anyMatch( review -> review.getPlatformWriterID().equals(aPlatformWriterID) &&
                 review.getSourcePlatform().equals(aSourcePlatform))){

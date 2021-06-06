@@ -24,7 +24,7 @@ public class ClientPlatformController {
         return clientPlatformService.registerNewClientPlatform(registerDTO);
     }
 
-    @PostMapping("/login")
+    @PutMapping("/login")
     public ResponseEntity loginWith(@RequestBody LoginDTO loginDTO) throws EmptyDTOException, ClientAccessException {
         return clientPlatformService.loginClientPlatform(loginDTO);
     }
