@@ -1,5 +1,5 @@
 INSERT INTO clients (id, api_key, name, contact_mail, password) VALUES
-    (1, 'superUserApiKey', 'Amazon Prime', 'pepe@gmail.com', '123');
+    (1, 'superUserApiKey', 'Amazon Prime', 'pepe@gmail.com', 'MTIz');
 
 INSERT INTO title_categories (id, category_name) VALUES
     (1, 'Movie'),

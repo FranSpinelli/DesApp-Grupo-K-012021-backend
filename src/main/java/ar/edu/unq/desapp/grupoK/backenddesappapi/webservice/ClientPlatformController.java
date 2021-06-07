@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.ClientPlatformService;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.ClientAccessException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.TokenValidationException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.LoginDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.RegisterDTO;
@@ -30,7 +31,7 @@ public class ClientPlatformController {
     }
 
     @GetMapping("/apiKey")
-    public ResponseEntity getApiKey(@RequestParam String name) throws InexistentElementException {
-        return clientPlatformService.getApiKeyForClientPlatformWithName(name);
+    public ResponseEntity getApiKey(@RequestParam String name, @RequestHeader String token) throws InexistentElementException, TokenValidationException {
+        return clientPlatformService.getApiKeyForClientPlatformWithName(name, token);
     }
 }

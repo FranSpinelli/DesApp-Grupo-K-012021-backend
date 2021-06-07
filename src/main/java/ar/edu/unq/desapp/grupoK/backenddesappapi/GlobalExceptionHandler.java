@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupoK.backenddesappapi;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.ClientAccessException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedElementException;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.TokenValidationException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.WrongApiKeyException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOException;
 import org.springframework.http.HttpStatus;
@@ -38,5 +39,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(RepeatedElementException.class)
     public ResponseEntity handleRepeatedElemntException(RepeatedElementException repeatedElementException){
         return ResponseEntity.status(400).body(repeatedElementException.getMessage());
+    }
+
+    @ExceptionHandler(TokenValidationException.class)
+    public ResponseEntity handleTokenValidationException(TokenValidationException tokenValidationException){
+        return ResponseEntity.status(400).body(tokenValidationException.getMessage());
     }
 }

@@ -4,6 +4,7 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.model.ClientPlatform;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ClientPlatformRepository;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.ClientAccessException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.TokenValidationException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.LoginDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.RegisterDTO;
@@ -48,16 +49,21 @@ public class ClientPlatformService {
             throw new ClientAccessException("Incorrect name or password");
         }
 
-        return ResponseEntity.ok().body(clientPlatformWithName);
+
+        String token = JwtToken.getTokenFor(clientPlatformWithName.getName());
+        return ResponseEntity.ok().body(token);
+        //return ResponseEntity.ok().body(clientPlatformWithName);
     }
 
-    public ResponseEntity getApiKeyForClientPlatformWithName(String name) throws InexistentElementException {
+    public ResponseEntity getApiKeyForClientPlatformWithName(String name, String token) throws InexistentElementException, TokenValidationException {
 
-        ClientPlatform clientPlatformWithName = clientPlatformRepository.findByName(name);
+            ClientPlatform clientPlatformWithName = clientPlatformRepository.findByName(name);
 
         if (clientPlatformWithName == null) {
             throw new InexistentElementException("There is no client platform with the given name");
         }
+
+        JwtToken.isValidToken(token.split(" ")[1],name);
 
         return ResponseEntity.ok().body(clientPlatformWithName.getApiKey());
     }
