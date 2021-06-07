@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice;
 
-import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PremiumReview;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PublicReview;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.*;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ReviewRepository;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.*;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PremiumReviewDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PublicReviewDTO;
@@ -10,8 +10,17 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @EnableAutoConfiguration
@@ -21,49 +30,54 @@ public class ReviewController {
     private ReviewService reviewService;
     @Autowired
     private ReportService reportService;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     @PostMapping("/premiumReview")
     @ApiOperation(value = "Post a new Premium Review",
-                    notes = "Provide a Title id and the Premium Review data",
-                    response = PremiumReview.class)
-    public ResponseEntity addNewPremiumReview(@RequestBody PremiumReviewDTO premiumReviewDTO){
+            notes = "Provide a Title id and the Premium Review data",
+            response = PremiumReview.class)
+    public ResponseEntity addNewPremiumReview(@RequestBody PremiumReviewDTO premiumReviewDTO) {
         return reviewService.addNewPremiumReview(premiumReviewDTO);
     }
 
     @PostMapping("/publicReview")
     @ApiOperation(value = "Post a new Public Review",
-                    notes = "Provide a Title id and the Public Review data",
-                    response = PublicReview.class)
-    public ResponseEntity addNewPublicReview(@RequestBody PublicReviewDTO publicReviewDTO){
+            notes = "Provide a Title id and the Public Review data",
+            response = PublicReview.class)
+    public ResponseEntity addNewPublicReview(@RequestBody PublicReviewDTO publicReviewDTO) {
         return reviewService.addNewPublicReview(publicReviewDTO);
     }
 
-    @PutMapping("/review/like")
-    @ApiOperation(value = "Like Review",
-                    notes = "Provide the Review id you want to like",
-                    response = Integer.class)
-    public ResponseEntity likePremiumReview(@RequestParam Integer id) {
-        return reviewService.likePremiumReview(id);
+    @GetMapping("/reviews")
+    public ResponseEntity allReviews() {
+
+        return ResponseEntity.status(200).body(reviewService.findAll());
     }
 
-    @PutMapping("/review/dislike")
-    @ApiOperation(value = "Dislike Review",
-                    notes = "Provide the Review id you want to dislike",
-                    response = Integer.class)
-    public ResponseEntity disLikePremiumReview(@RequestParam Integer id){
-        return reviewService.disLikePremiumReview(id);
+    //-------------------------------------------------------------------------------------
+
+    @GetMapping("/review")
+    public Collection<Review> findByRequest(@RequestParam(required = false) String type,
+                                            @RequestParam(required = false) Integer id,
+                                            @RequestParam(required = false) String source,
+                                            @RequestParam(required = false) String language,
+                                            @RequestParam(required = false) String country,
+                                            @RequestParam(required = false) Boolean spoilerAlert,
+                                            @RequestParam(required = false) Double rating,
+                                            @RequestParam(required = false, defaultValue = "asc") String orderField,
+                                            @RequestParam(required = false, defaultValue = "rating") String criteria) {
+
+        System.out.println(type);
+        /*System.out.println(country);
+        System.out.println(language);
+        System.out.println(orderField);
+        System.out.println(spoilerAlert);*/
+
+        //return reviewService.findAll(type, id,source, language, country, spoilerAlert);
+        return reviewService.findAll(type, id, source, language, country, spoilerAlert, rating, orderField, criteria);
     }
 
-    @PostMapping("/review/report")
-    public ResponseEntity reportReview(@RequestBody ReportDTO reportDTO){
-        return reportService.addNewReport(reportDTO);
-    }
-
-    @GetMapping(value = "/review/{id}")
-    @ApiOperation(value = "Get all the reviews of a specific Title",
-                    notes = "Provide the Title id in order to get its reviews")
-    public ResponseEntity getAllReviews(@ApiParam(value = "ID value for the Title's reviews you are interested in", required = true)
-                                            @PathVariable("id") Integer id){
-        return reviewService.getAllReviewsOfTitleWithID(id);
-    }
 }
+
+

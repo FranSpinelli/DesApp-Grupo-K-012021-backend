@@ -14,19 +14,24 @@ public class PublicReview extends Review {
     @Column
     private String geographicPosition;
 
+    private String type;
+
 
     public PublicReview() {
         super();
     }
 
-    public PublicReview(String aExtendedDescription, String aSumaryDescription, Integer aRating, Boolean aSpoilerAlert, LocalDate aDate,
-                        String aSourcePlatform, String aPlatformUserID, String aNickName, String aLenguage, String aGeogrephicPosition){
+
+    public PublicReview(String aExtendedDescription, String aSumaryDescription, Double aRating, Boolean aSpoilerAlert, LocalDate aDate,
+                        String aSourcePlatform, String aPlatformUserID, String aNickName, String aLenguage, String aGeogrephicPosition,
+                        String type){
 
         super(aExtendedDescription, aSumaryDescription, aRating, aDate, aSourcePlatform, aPlatformUserID, aLenguage);
 
         this.spoilerAlert =  aSpoilerAlert;
         this.nickName = aNickName;
         this.geographicPosition = aGeogrephicPosition;
+        this.type = type;
 
     }
 
@@ -42,6 +47,8 @@ public class PublicReview extends Review {
         return geographicPosition;
     }
 
+    public String getType(){ return type;}
+
     public void setSpoilerAlert(Boolean spoilerAlert) {
         this.spoilerAlert = spoilerAlert;
     }
@@ -53,6 +60,8 @@ public class PublicReview extends Review {
     public void setGeographicPosition(String geographicPosition) {
         this.geographicPosition = geographicPosition;
     }
+
+    public void setType(String type){ this.type = type;  }
 
 }
 

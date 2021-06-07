@@ -2,7 +2,7 @@ package ar.edu.unq.desapp.grupoK.backenddesappapi;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-
+/*
 public class ServletInitializer extends SpringBootServletInitializer {
 
     @Override
@@ -10,5 +10,5 @@ public class ServletInitializer extends SpringBootServletInitializer {
         return application.sources(BackendDesappApiApplication.class);
     }
 }
-
+*/
 

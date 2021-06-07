@@ -13,11 +13,12 @@ public class PublicReviewDTO extends PremiumReviewDTO{
     private String nickName;
     private String geographicPosition;
 
+
     public PublicReviewDTO() {}
 
-    public PublicReviewDTO(Integer titleID,String extendedDescription,String summaryDescription,Integer rating,
+    public PublicReviewDTO(Integer titleID,String extendedDescription,String summaryDescription,Double rating,
                            String sourcePlatform, String platformWriterID, String lenguage, Boolean spoilerAlert,
-                           String nickName, String geographicPosition) {
+                           String nickName, String geographicPosition, String typeReview) {
         /*this.titleID = titleID;
         this.extendedDescription = extendedDescription;
         this.summaryDescription = summaryDescription;
@@ -26,10 +27,11 @@ public class PublicReviewDTO extends PremiumReviewDTO{
         this.platformWriterID = platformWriterID;
         this.lenguage = lenguage;*/
 
-        super(titleID, extendedDescription, summaryDescription, rating, sourcePlatform, platformWriterID, lenguage);
+        super(titleID, extendedDescription, summaryDescription, rating, sourcePlatform, platformWriterID, lenguage, typeReview);
         this.spoilerAlert = spoilerAlert;
         this.nickName = nickName;
         this.geographicPosition = geographicPosition;
+
     }
 
     /*public Integer getTitleID() {

@@ -6,11 +6,22 @@ import java.time.LocalDate;
 @Entity
 public class PremiumReview extends Review {
 
+
     public PremiumReview(){};
 
-    public PremiumReview(String aExtendedDescription, String aSumaryDescription, Integer aRaiting, LocalDate aDate,
-                         String aSourcePlatform, String aPlatformWriterID, String aLanguage){
+    public String typeReview;
+
+    public PremiumReview(String aExtendedDescription, String aSumaryDescription, Double aRaiting, LocalDate aDate,
+                         String aSourcePlatform, String aPlatformWriterID, String aLanguage, String typeReview) {
 
         super(aExtendedDescription, aSumaryDescription, aRaiting, aDate, aSourcePlatform, aPlatformWriterID, aLanguage);
+
+        this.typeReview = typeReview;
+
     }
+/*
+    private String getTypeReview(){ return this.typeReview}
+
+    public void setTypeReview(String typeReview){ this.typeReview = typeReview}
+*/
 }

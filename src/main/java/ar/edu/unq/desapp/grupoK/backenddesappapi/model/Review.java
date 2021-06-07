@@ -1,5 +1,7 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
 
+import io.swagger.models.auth.In;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ public abstract class Review {
     @Column
     private String summaryDescription;
     @Column
-    private Integer rating;
+    private Double rating;
     @Column
     private LocalDate date;
     @Column
@@ -34,12 +36,15 @@ public abstract class Review {
     @Column
     private Integer nmbrDislike;
 
+
     @OneToMany(fetch = FetchType.LAZY)
     private List<Report> reports;
 
-    public Review() {}
+    public  Review() {}
 
-    public Review(String aExtendedDescription, String aSumaryDescription, Integer aRaiting, LocalDate aDate,
+    public String typeReview;
+
+    public Review(String aExtendedDescription, String aSumaryDescription, Double aRaiting, LocalDate aDate,
                   String aSourcePlatform, String aPlatformWriterID, String aLanguage){
 
         this.extendedDescription = aExtendedDescription;
@@ -51,12 +56,11 @@ public abstract class Review {
         this.language = aLanguage;
         this.nmbrLike = 0;
         this.nmbrDislike = 0;
+
         reports = new ArrayList<Report>();
     }
 
-    public Integer getId() {
-        return id;
-    }
+    public Integer getId() { return id; }
 
     public String getExtendedDescription(){
         return extendedDescription;
@@ -66,7 +70,7 @@ public abstract class Review {
         return summaryDescription;
     }
 
-    public Integer getRating(){
+    public Double getRating(){
         return rating;
     }
 
@@ -94,9 +98,7 @@ public abstract class Review {
         return nmbrDislike;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public void setId(Integer id) { this.id = id; }
 
     public void setExtendedDescription(String extendedDescription) {
         this.extendedDescription = extendedDescription;
@@ -106,7 +108,7 @@ public abstract class Review {
         this.summaryDescription = summaryDescription;
     }
 
-    public void setRating(Integer rating){
+    public void setRating(Double rating){
         this.rating = rating;
     }
 
@@ -141,5 +143,9 @@ public abstract class Review {
     public Collection<Report> getReports() {
         return reports;
     }
+
+    public void setTypeReview(String type){ this.typeReview = type;}
+
+
 }
 

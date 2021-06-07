@@ -99,6 +99,10 @@ public class Title {
         this.startYear = startYear;
     }
 
+    public void setCategory(String category) {
+        this.category = new TitleCategory();
+    }
+
     public void addReview(Review aReview){
         this.titleReviews.add(aReview);
     }

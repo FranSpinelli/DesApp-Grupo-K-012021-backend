@@ -26,4 +26,5 @@ public abstract class Category {
     public String getCategoryName() {
         return categoryName;
     }
+
 }
