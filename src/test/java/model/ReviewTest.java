@@ -1,22 +1,21 @@
 package model;
 
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PremiumReview;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Report;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Review;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PremiumReviewTest {
+class ReviewTest {
 
     @Test
     void PremiumReviewConstructorGettersAndSettersTest(){
 
         LocalDate date = LocalDate.of(2020, 1, 1);
-        PremiumReview aPremiumReview = new PremiumReview("description", "desc", 2, date,
+        Review aPremiumReview = new PremiumReview("description", "desc", 2, date,
                 "platform", "P1","lenguague");
 
         assertNull(aPremiumReview.getId());
@@ -26,7 +25,8 @@ class PremiumReviewTest {
         assertEquals(aPremiumReview.getDate(), date);
         assertEquals(aPremiumReview.getSourcePlatform(), "platform");
         assertEquals(aPremiumReview.getPlatformWriterID(), "P1");
-        assertEquals(aPremiumReview.getLenguage(), "lenguague");
+        assertEquals(aPremiumReview.getLanguage(), "lenguague");
+        assertEquals(aPremiumReview.getReports().size(), 0);
 
         LocalDate date2 = LocalDate.of(2020, 1, 2);
 
@@ -37,7 +37,7 @@ class PremiumReviewTest {
         aPremiumReview.setDate(date2);
         aPremiumReview.setSourcePlatform("platform2");
         aPremiumReview.setPlatformWriterID("P2");
-        aPremiumReview.setLenguage("lenguague2");
+        aPremiumReview.setLanguage("lenguague2");
 
         assertEquals(aPremiumReview.getId(), 2);
         assertEquals(aPremiumReview.getExtendedDescription(), "description2");
@@ -46,13 +46,13 @@ class PremiumReviewTest {
         assertEquals(aPremiumReview.getDate(), date2);
         assertEquals(aPremiumReview.getSourcePlatform(), "platform2");
         assertEquals(aPremiumReview.getPlatformWriterID(), "P2");
-        assertEquals(aPremiumReview.getLenguage(), "lenguague2");
+        assertEquals(aPremiumReview.getLanguage(), "lenguague2");
     }
 
     @Test
     void PremiumReviewGetLikeAndGetDislikeTest(){
         LocalDate date = LocalDate.of(2020, 1, 1);
-        PremiumReview aPremiumReview = new PremiumReview("description", "desc", 2, date,
+        Review aPremiumReview = new PremiumReview("description", "desc", 2, date,
                 "platform", "P1","lenguague");
 
         assertEquals(aPremiumReview.getLike(), 0);
@@ -62,7 +62,7 @@ class PremiumReviewTest {
     @Test
     void PremiumReviewAddLikeAndAddDislikeTest(){
         LocalDate date = LocalDate.of(2020, 1, 1);
-        PremiumReview aPremiumReview = new PremiumReview("description", "desc", 2, date,
+        Review aPremiumReview = new PremiumReview("description", "desc", 2, date,
                 "platform", "P1","lenguague");
 
         aPremiumReview.addLike();
@@ -74,5 +74,19 @@ class PremiumReviewTest {
 
         assertEquals(aPremiumReview.getLike(), 3);
         assertEquals(aPremiumReview.getDislike(), 2);
+    }
+
+    @Test
+    void ReviewAddReportTest(){
+        LocalDate date = LocalDate.of(2020, 1, 1);
+        Review aPremiumReview = new PremiumReview("description", "desc", 2, date,
+                "platform", "P1","lenguague");
+
+        assertEquals(aPremiumReview.getReports().size(), 0);
+
+        Report aReport = new Report("aCause", "netflix", "n12", "fran");
+        aPremiumReview.addReport(aReport);
+
+        assertEquals(aPremiumReview.getReports().size(), 1);
     }
 }

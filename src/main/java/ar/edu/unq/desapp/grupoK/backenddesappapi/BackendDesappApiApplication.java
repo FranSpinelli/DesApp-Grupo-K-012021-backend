@@ -20,7 +20,7 @@ import java.util.Collections;
 public class BackendDesappApiApplication {
 
     public static void main(String[] args) {
-        System.setProperty("server.servlet.context-path", "/re-seña");
+        System.setProperty("server.servlet.context-path", "/re-senia");
         SpringApplication.run(BackendDesappApiApplication.class, args);
     }
 
