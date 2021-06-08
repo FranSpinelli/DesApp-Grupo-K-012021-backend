@@ -1,4 +1,21 @@
 ---------------------------------------------------------------------
+TAG 2.0
+---------------------------------------------------------------------
+NEW FEATURES (lo que están entregando y está funcionando):
+* Add report the reviews
+* Now it is necessary to have an ApiKey in order to reach private endpoints
+* Register, Login and ApiKey endpoints were implemented to be used by frontend
+* Authentication required to reach ApiKey endpoint
+
+NOTES (ej: funcionalidad que falta, alguna consideración especial):
+* Frontend is not fully implemented yet
+* Normal search has some issues so it wasn't included
+* Reverse search is not fully implemented yet
+
+KNOWN ISSUES (ej: funcionalidad que saben que están funcionando diferente, algún error conocido en la funcionalidad terminada, etc) :
+* Move all the logic inside the controller to its service.
+* Represent Title type with an enum.
+---------------------------------------------------------------------
 TAG 1.0
 ---------------------------------------------------------------------
 NEW FEATURES (lo que están entregando y está funcionando):
