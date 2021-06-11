@@ -16,8 +16,8 @@ class PublicReviewTest {
     void PublicReviewConstructorGettersAndSettersTest(){
 
         LocalDate date = LocalDate.of(2020, 1, 1);
-        PublicReview aPublicReview = new PublicReview( "description", "desc", 2, false,
-                date, "Netflix", "N12", "nick", "language", "position");
+        PublicReview aPublicReview = new PublicReview( "description", "desc", 2.0, false,
+                date, "Netflix", "N12", "nick", "language", "position", "type");
 
         assertEquals(aPublicReview.getSpoilerAlert(), false);
         assertEquals(aPublicReview.getNickName(), "nick");

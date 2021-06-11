@@ -1,18 +1,14 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice;
 
-import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Title;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.model.TitleCategory;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentTitleWithIDError;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.TitleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.service.TitleService;
 
-import java.util.*;
+import java.util.Collection;
 
 @RestController
 @EnableAutoConfiguration

@@ -15,8 +15,8 @@ class ReviewTest {
     void PremiumReviewConstructorGettersAndSettersTest(){
 
         LocalDate date = LocalDate.of(2020, 1, 1);
-        Review aPremiumReview = new PremiumReview("description", "desc", 2, date,
-                "platform", "P1","lenguague");
+        Review aPremiumReview = new PremiumReview("description", "desc", 2.0, date,
+                "platform", "P1","lenguague", "type");
 
         assertNull(aPremiumReview.getId());
         assertEquals(aPremiumReview.getExtendedDescription(), "description");
@@ -33,7 +33,7 @@ class ReviewTest {
         aPremiumReview.setId(2);
         aPremiumReview.setExtendedDescription("description2");
         aPremiumReview.setSummaryDescription("desc2");
-        aPremiumReview.setRating(3);
+        aPremiumReview.setRating(3.0);
         aPremiumReview.setDate(date2);
         aPremiumReview.setSourcePlatform("platform2");
         aPremiumReview.setPlatformWriterID("P2");
@@ -52,8 +52,8 @@ class ReviewTest {
     @Test
     void PremiumReviewGetLikeAndGetDislikeTest(){
         LocalDate date = LocalDate.of(2020, 1, 1);
-        Review aPremiumReview = new PremiumReview("description", "desc", 2, date,
-                "platform", "P1","lenguague");
+        Review aPremiumReview = new PremiumReview("description", "desc", 2.0, date,
+                "platform", "P1","lenguague", "type");
 
         assertEquals(aPremiumReview.getLike(), 0);
         assertEquals(aPremiumReview.getDislike(), 0);
@@ -62,8 +62,8 @@ class ReviewTest {
     @Test
     void PremiumReviewAddLikeAndAddDislikeTest(){
         LocalDate date = LocalDate.of(2020, 1, 1);
-        Review aPremiumReview = new PremiumReview("description", "desc", 2, date,
-                "platform", "P1","lenguague");
+        Review aPremiumReview = new PremiumReview("description", "desc", 2.0, date,
+                "platform", "P1","lenguague", "type");
 
         aPremiumReview.addLike();
         aPremiumReview.addLike();
@@ -79,8 +79,8 @@ class ReviewTest {
     @Test
     void ReviewAddReportTest(){
         LocalDate date = LocalDate.of(2020, 1, 1);
-        Review aPremiumReview = new PremiumReview("description", "desc", 2, date,
-                "platform", "P1","lenguague");
+        Review aPremiumReview = new PremiumReview("description", "desc", 2.0, date,
+                "platform", "P1","lenguague", "type");
 
         assertEquals(aPremiumReview.getReports().size(), 0);
 

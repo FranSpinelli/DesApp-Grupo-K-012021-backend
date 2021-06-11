@@ -76,10 +76,10 @@ class TitleTest {
         TitleCategory aCategory = new TitleCategory(1, "movie");
         Title aMovie = new Title(1,"Titanic", false, 1998, null,100, aCategory);
         LocalDate date = LocalDate.parse("2020-01-01");
-        Review review1 = new PremiumReview("description", "desc", 2, date,
-                "platform", "AP1","language");
-        PublicReview review2 = new PublicReview( "description", "desc", 2, false,
-                date, "Netflix", "N12", "Frank442", "language", "Argentina");
+        Review review1 = new PremiumReview("description", "desc", 2.0, date,
+                "platform", "AP1","language", "type");
+        PublicReview review2 = new PublicReview( "description", "desc", 2.0, false,
+                date, "Netflix", "N12", "Frank442", "language", "Argentina", "type");
 
         aMovie.addReview(review1);
         aMovie.addReview(review2);
