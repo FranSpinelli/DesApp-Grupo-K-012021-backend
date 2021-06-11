@@ -189,6 +189,7 @@ public class ReviewService extends AbstractService {
             premReview.setLanguage(language);
             premReview.setSourcePlatform(source);
             Example<Review> examplePrem = Example.of(premReview);
+            //Collection<Review> premiumReview = reviewRepository.findAll(examplePrem,Sort.by(sorting, orderBy));
             Collection<Review> premiumReview = reviewRepository.findAll(examplePrem);
             return premiumReview;
 
