@@ -27,8 +27,7 @@ public class ApiKeyVericatorAspect {
     @Before("methodStarterServicePointcut()")
     public void beforeMethod() throws Throwable {
 
-        LinkedHashMap hashMapWithPathVariable = (LinkedHashMap) ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
-        String apiKey = (String) hashMapWithPathVariable.get("apiKey");
+        String apiKey = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("apikey");
 
         ClientPlatform clientPlatformWithApiKey = clientPlatformRepository.findByApiKey(apiKey);
 
