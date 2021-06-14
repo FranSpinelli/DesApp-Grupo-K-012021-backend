@@ -6,11 +6,10 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.TokenValidationException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.WrongApiKeyException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOException;
-import org.springframework.http.HttpStatus;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ErrorResponseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
@@ -18,31 +17,31 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(WrongApiKeyException.class)
     public ResponseEntity handleWrongApiKeyException(WrongApiKeyException itemNotFoundException){
-        return ResponseEntity.status(400).body(itemNotFoundException.getMessage());
+        return ResponseEntity.status(400).body(new ErrorResponseDTO(itemNotFoundException.getMessage()));
     }
 
     @ExceptionHandler(EmptyDTOException.class)
     public ResponseEntity handleEmptyDTOException(EmptyDTOException emptyDTOException){
-        return ResponseEntity.status(400).body(emptyDTOException.getMessage());
+        return ResponseEntity.status(400).body(new ErrorResponseDTO(emptyDTOException.getMessage()));
     }
 
     @ExceptionHandler(ClientAccessException.class)
     public ResponseEntity handleClientAccessException(ClientAccessException clientAccessException){
-        return ResponseEntity.status(400).body(clientAccessException.getMessage());
+        return ResponseEntity.status(400).body(new ErrorResponseDTO(clientAccessException.getMessage()));
     }
 
     @ExceptionHandler(InexistentElementException.class)
     public ResponseEntity handleInexistentElementException(InexistentElementException inexistentElementException){
-        return ResponseEntity.status(400).body(inexistentElementException.getMessage());
+        return ResponseEntity.status(400).body(new ErrorResponseDTO(inexistentElementException.getMessage()));
     }
 
     @ExceptionHandler(RepeatedElementException.class)
     public ResponseEntity handleRepeatedElemntException(RepeatedElementException repeatedElementException){
-        return ResponseEntity.status(400).body(repeatedElementException.getMessage());
+        return ResponseEntity.status(400).body(new ErrorResponseDTO(repeatedElementException.getMessage()));
     }
 
     @ExceptionHandler(TokenValidationException.class)
     public ResponseEntity handleTokenValidationException(TokenValidationException tokenValidationException){
-        return ResponseEntity.status(400).body(tokenValidationException.getMessage());
+        return ResponseEntity.status(400).body(new ErrorResponseDTO(tokenValidationException.getMessage()));
     }
 }

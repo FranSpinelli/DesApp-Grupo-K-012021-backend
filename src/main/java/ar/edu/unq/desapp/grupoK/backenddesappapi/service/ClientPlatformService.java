@@ -5,9 +5,7 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ClientPlatformRepos
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.ClientAccessException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.TokenValidationException;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOException;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.LoginDTO;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.RegisterDTO;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -34,7 +32,7 @@ public class ClientPlatformService {
                     generatedApiKey);
         clientPlatformRepository.save(newClientPlatform);
 
-        return ResponseEntity.ok().body(newClientPlatform);
+        return ResponseEntity.ok().build();
     }
 
     public ResponseEntity loginClientPlatform(LoginDTO loginDTO) throws EmptyDTOException, ClientAccessException {
@@ -51,8 +49,7 @@ public class ClientPlatformService {
 
 
         String token = JwtToken.getTokenFor(clientPlatformWithName.getName());
-        return ResponseEntity.ok().body(token);
-        //return ResponseEntity.ok().body(clientPlatformWithName);
+        return ResponseEntity.ok().body(new TokenResponseDTO(token));
     }
 
     public ResponseEntity getApiKeyForClientPlatformWithName(String name, String token) throws InexistentElementException, TokenValidationException {
@@ -65,7 +62,7 @@ public class ClientPlatformService {
 
         JwtToken.isValidToken(token.split(" ")[1],name);
 
-        return ResponseEntity.ok().body(clientPlatformWithName.getApiKey());
+        return ResponseEntity.ok().body(new ApiKeyResponseDTO(clientPlatformWithName.getApiKey()));
     }
 
     private String generateApiKey() {

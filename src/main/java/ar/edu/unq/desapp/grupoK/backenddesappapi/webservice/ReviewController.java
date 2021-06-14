@@ -25,7 +25,7 @@ public class ReviewController {
     @Autowired
     private ReportService reportService;
 
-    @PostMapping("/premiumReview/{apiKey}")
+    @PostMapping("/premiumReview")
     @ApiOperation(value = "Post a new Premium Review",
                     notes = "Provide a Title id and the Premium Review data",
                     response = PremiumReview.class)
@@ -33,7 +33,7 @@ public class ReviewController {
         return reviewService.addNewPremiumReview(premiumReviewDTO);
     }
 
-    @PostMapping("/publicReview/{apiKey}")
+    @PostMapping("/publicReview")
     @ApiOperation(value = "Post a new Public Review",
                     notes = "Provide a Title id and the Public Review data",
                     response = PublicReview.class)
@@ -41,7 +41,7 @@ public class ReviewController {
         return reviewService.addNewPublicReview(publicReviewDTO);
     }
 
-    @PutMapping("/review/like/{apiKey}")
+    @PutMapping("/review/like")
     @ApiOperation(value = "Like Review",
                     notes = "Provide the Review id you want to like",
                     response = Integer.class)
@@ -49,7 +49,7 @@ public class ReviewController {
         return reviewService.likePremiumReview(id);
     }
 
-    @PutMapping("/review/dislike/{apiKey}")
+    @PutMapping("/review/dislike")
     @ApiOperation(value = "Dislike Review",
                     notes = "Provide the Review id you want to dislike",
                     response = Integer.class)
@@ -57,12 +57,12 @@ public class ReviewController {
         return reviewService.disLikePremiumReview(id);
     }
 
-    @PostMapping("/review/report/{apiKey}")
+    @PostMapping("/review/report")
     public ResponseEntity reportReview(@RequestBody ReportDTO reportDTO) throws EmptyDTOException, InexistentElementException, RepeatedElementException {
         return reportService.addNewReport(reportDTO);
     }
 
-    @GetMapping(value = "/review/{id}/{apiKey}")
+    @GetMapping(value = "/review/{id}")
     @ApiOperation(value = "Get all the reviews of a specific Title",
                     notes = "Provide the Title id in order to get its reviews")
     public ResponseEntity getAllReviews(@ApiParam(value = "ID value for the Title's reviews you are interested in", required = true)
