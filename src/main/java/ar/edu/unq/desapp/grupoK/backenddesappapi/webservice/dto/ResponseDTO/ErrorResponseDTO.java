@@ -1,14 +1,10 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ResponseDTO;
 
-public class ErrorResponseDTO {
+public abstract class ErrorResponseDTO<T> {
 
-    private Object message;
+    private T message;
 
-    public ErrorResponseDTO(Object message){
+    public ErrorResponseDTO(T message){
         this.message = message;
-    }
-
-    public Object getMessage() {
-        return message;
     }
 }

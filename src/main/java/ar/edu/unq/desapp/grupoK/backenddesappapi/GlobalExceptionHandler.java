@@ -5,13 +5,13 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.TokenValidationException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.WrongApiKeyException;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ResponseDTO.ErrorResponseDTO;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ResponseDTO.GenericErrorResponseDTO;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ResponseDTO.ValidationErrorResponseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,27 +21,27 @@ public class GlobalExceptionHandler{
 
     @ExceptionHandler(WrongApiKeyException.class)
     public ResponseEntity handleWrongApiKeyException(WrongApiKeyException itemNotFoundException){
-        return ResponseEntity.status(400).body(new ErrorResponseDTO(itemNotFoundException.getMessage()));
+        return ResponseEntity.status(400).body(new GenericErrorResponseDTO(itemNotFoundException.getMessage()));
     }
 
     @ExceptionHandler(ClientAccessException.class)
     public ResponseEntity handleClientAccessException(ClientAccessException clientAccessException){
-        return ResponseEntity.status(400).body(new ErrorResponseDTO(clientAccessException.getMessage()));
+        return ResponseEntity.status(400).body(new GenericErrorResponseDTO(clientAccessException.getMessage()));
     }
 
     @ExceptionHandler(InexistentElementException.class)
     public ResponseEntity handleInexistentElementException(InexistentElementException inexistentElementException){
-        return ResponseEntity.status(400).body(new ErrorResponseDTO(inexistentElementException.getMessage()));
+        return ResponseEntity.status(400).body(new GenericErrorResponseDTO(inexistentElementException.getMessage()));
     }
 
     @ExceptionHandler(RepeatedElementException.class)
     public ResponseEntity handleRepeatedElementException(RepeatedElementException repeatedElementException){
-        return ResponseEntity.status(400).body(new ErrorResponseDTO(repeatedElementException.getMessage()));
+        return ResponseEntity.status(400).body(new GenericErrorResponseDTO(repeatedElementException.getMessage()));
     }
 
     @ExceptionHandler(TokenValidationException.class)
     public ResponseEntity handleTokenValidationException(TokenValidationException tokenValidationException){
-        return ResponseEntity.status(400).body(new ErrorResponseDTO(tokenValidationException.getMessage()));
+        return ResponseEntity.status(400).body(new GenericErrorResponseDTO(tokenValidationException.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -54,6 +54,6 @@ public class GlobalExceptionHandler{
             errors.put(fieldName, errorMessage);
         });
 
-        return ResponseEntity.status(400).body(new ErrorResponseDTO(errors));
+        return ResponseEntity.status(400).body(new ValidationErrorResponseDTO(errors));
     }
 }
