@@ -7,8 +7,4 @@ public class TokenResponseDTO {
     public TokenResponseDTO(String token) {
         this.token = "Bearer " + token;
     }
-
-    public String getToken() {
-        return token;
-    }
 }
