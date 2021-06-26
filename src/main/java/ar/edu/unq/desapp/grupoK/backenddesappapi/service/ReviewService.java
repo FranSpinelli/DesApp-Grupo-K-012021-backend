@@ -6,7 +6,6 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedElementException;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PremiumReviewDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PublicReviewDTO;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +19,7 @@ import java.util.Collection;
 public class ReviewService extends AbstractService {
 
     @Transactional
-    public ResponseEntity addNewPremiumReview(PremiumReviewDTO premiumReviewDTO) throws EmptyDTOException, InexistentElementException, RepeatedElementException {
-
-        premiumReviewDTO.assertEmpty();
+    public ResponseEntity addNewPremiumReview(PremiumReviewDTO premiumReviewDTO) throws InexistentElementException, RepeatedElementException {
 
         Title titleWithID = findTitleByID(premiumReviewDTO.getTitleID());
 
@@ -41,9 +38,7 @@ public class ReviewService extends AbstractService {
     }
 
     @Transactional
-    public ResponseEntity addNewPublicReview(PublicReviewDTO publicReviewDTO) throws EmptyDTOException, InexistentElementException, RepeatedElementException {
-
-        publicReviewDTO.assertEmpty();
+    public ResponseEntity addNewPublicReview(PublicReviewDTO publicReviewDTO) throws InexistentElementException, RepeatedElementException {
 
         Title titleWithID = findTitleByID(publicReviewDTO.getTitleID());
 

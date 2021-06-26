@@ -5,7 +5,6 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PublicReview;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.*;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedElementException;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PremiumReviewDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PublicReviewDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ReportDTO;
@@ -15,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @EnableAutoConfiguration
@@ -29,7 +30,7 @@ public class ReviewController {
     @ApiOperation(value = "Post a new Premium Review",
                     notes = "Provide a Title id and the Premium Review data",
                     response = PremiumReview.class)
-    public ResponseEntity addNewPremiumReview(@RequestBody PremiumReviewDTO premiumReviewDTO) throws EmptyDTOException, InexistentElementException, RepeatedElementException {
+    public ResponseEntity addNewPremiumReview(@RequestBody @Valid PremiumReviewDTO premiumReviewDTO) throws InexistentElementException, RepeatedElementException {
         return reviewService.addNewPremiumReview(premiumReviewDTO);
     }
 
@@ -37,7 +38,7 @@ public class ReviewController {
     @ApiOperation(value = "Post a new Public Review",
                     notes = "Provide a Title id and the Public Review data",
                     response = PublicReview.class)
-    public ResponseEntity addNewPublicReview(@RequestBody PublicReviewDTO publicReviewDTO) throws EmptyDTOException, InexistentElementException, RepeatedElementException {
+    public ResponseEntity addNewPublicReview(@RequestBody @Valid PublicReviewDTO publicReviewDTO) throws InexistentElementException, RepeatedElementException {
         return reviewService.addNewPublicReview(publicReviewDTO);
     }
 
@@ -58,7 +59,7 @@ public class ReviewController {
     }
 
     @PostMapping("/review/report")
-    public ResponseEntity reportReview(@RequestBody ReportDTO reportDTO) throws EmptyDTOException, InexistentElementException, RepeatedElementException {
+    public ResponseEntity reportReview(@RequestBody @Valid ReportDTO reportDTO) throws InexistentElementException, RepeatedElementException {
         return reportService.addNewReport(reportDTO);
     }
 

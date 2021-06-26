@@ -6,6 +6,8 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.TokenValidationException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.*;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ResponseDTO.ApiKeyResponseDTO;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ResponseDTO.TokenResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,7 @@ public class ClientPlatformService {
     @Autowired
     private ClientPlatformRepository clientPlatformRepository;
 
-    public ResponseEntity registerNewClientPlatform(RegisterDTO registerDTO) throws EmptyDTOException, ClientAccessException {
-        registerDTO.assertEmpty();
+    public ResponseEntity registerNewClientPlatform(RegisterDTO registerDTO) throws ClientAccessException {
 
         isThereAPlatformWithSameName(registerDTO.getClientPlatformName());
 
@@ -35,9 +36,7 @@ public class ClientPlatformService {
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity loginClientPlatform(LoginDTO loginDTO) throws EmptyDTOException, ClientAccessException {
-
-        loginDTO.assertEmpty();
+    public ResponseEntity loginClientPlatform(LoginDTO loginDTO) throws ClientAccessException {
 
         ClientPlatform clientPlatformWithName = clientPlatformRepository.findByName(loginDTO.getClientPlatformName());
 

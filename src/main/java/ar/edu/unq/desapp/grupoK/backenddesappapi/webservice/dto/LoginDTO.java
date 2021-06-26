@@ -1,8 +1,18 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+@Valid
 public class LoginDTO {
 
+    @NotNull(message = "Password field can't be null in the body json")
+    @NotEmpty(message = "Password field can't be empty in the body json")
     private String password;
+
+    @NotNull(message = "ClientPlatformName field can't be null in the body json")
+    @NotEmpty(message = "ClientPlatformName field can't be empty in the body json")
     private String clientPlatformName;
 
     public LoginDTO(String password, String clientPlatformName){
@@ -16,15 +26,5 @@ public class LoginDTO {
 
     public String getPassword() {
         return password;
-    }
-
-    public void assertEmpty() throws EmptyDTOException {
-        if(password == null || clientPlatformName == null){
-            throw new EmptyDTOException("Wrong json received as parameter");
-        }
-
-        if(password.equals("") || clientPlatformName.equals("")){
-            throw new EmptyDTOException("There is an empty field in the body json");
-        }
     }
 }

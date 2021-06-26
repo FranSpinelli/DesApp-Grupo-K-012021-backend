@@ -5,7 +5,6 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ReportRepository;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedElementException;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ReportDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +20,7 @@ public class ReportService extends AbstractService {
     private ReportRepository reportRepository;
 
     @Transactional
-    public ResponseEntity addNewReport(ReportDTO reportDTO) throws EmptyDTOException, InexistentElementException, RepeatedElementException {
-
-        reportDTO.assertEmpty();
+    public ResponseEntity addNewReport(ReportDTO reportDTO) throws InexistentElementException, RepeatedElementException {
 
         Review reviewWithID = findReviewByID(reportDTO.getReviewID());
 

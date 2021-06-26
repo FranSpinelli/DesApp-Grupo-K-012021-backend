@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto;
+package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ResponseDTO;
 
 public class ApiKeyResponseDTO {
 
