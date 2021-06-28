@@ -1,10 +1,17 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Valid
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReportDTO {
 
     @NotNull(message = "ReviewID field can't be null in the body json")
@@ -25,35 +32,4 @@ public class ReportDTO {
     @NotNull(message = "ReporterNickName field can't be null in the body json")
     @NotEmpty(message = "ReporterNickName field can't be empty in the body json")
     private String reporterNickName;
-
-    public ReportDTO(){}
-
-    public ReportDTO(Integer reviewID, String reportCause, String sourcePlartform, String platformReporterID,
-                    String reporterNickName){
-        this.reviewID = reviewID;
-        this.reportCause = reportCause;
-        this.sourcePlatform = sourcePlartform;
-        this.platformReporterID = platformReporterID;
-        this.reporterNickName = reporterNickName;
-    }
-
-    public Integer getReviewID() {
-        return reviewID;
-    }
-
-    public String getReportCause() {
-        return reportCause;
-    }
-
-    public String getSourcePlatform() {
-        return sourcePlatform;
-    }
-
-    public String getPlatformReporterID() {
-        return platformReporterID;
-    }
-
-    public String getReporterNickName() {
-        return reporterNickName;
-    }
 }
