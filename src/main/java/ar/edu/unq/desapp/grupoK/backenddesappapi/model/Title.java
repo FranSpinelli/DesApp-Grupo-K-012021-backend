@@ -31,6 +31,9 @@ public class Title {
     @ManyToMany(fetch = FetchType.LAZY)
     private List<FilmWorker> titleFilmworkers;
 
+    @ElementCollection
+    private List<String> titleSubscribers;
+
     public Title() {}
 
     public Title(Integer anID, String anOriginalTitle, Boolean anIsAdultIndicator, Integer aStartYear,
@@ -46,8 +49,10 @@ public class Title {
             this.startYear = aStartYear;
             this.endYear = anEndYear;
             this.runtimeMinutes = aRuntimeMinutesAmount;
-            this.titleReviews = new ArrayList<Review>();
             this.category = aTitleCategory;
+            this.titleReviews = new ArrayList<>();
+            this.titleFilmworkers = new ArrayList<>();
+            this.titleSubscribers = new ArrayList<>();
         }else{
             throw new InvalidDatesError("Wrong dates passed as parameters");
         }
@@ -67,12 +72,16 @@ public class Title {
 
     public Integer getRuntimeMinutes() { return runtimeMinutes; }
 
+    public String getCategory() {
+        return category.getCategoryName();
+    }
+
     public List<Review> getReviews(){
      return this.titleReviews;
     }
 
-    public String getCategory() {
-        return category.getCategoryName();
+    public List<String> getTitleSubscribers() {
+        return titleSubscribers;
     }
 
     public void setId(Integer id){
@@ -101,5 +110,9 @@ public class Title {
 
     public void addReview(Review aReview){
         this.titleReviews.add(aReview);
+    }
+
+    public void addSubscriber(String aSubscriber){
+        this.titleSubscribers.add(aSubscriber);
     }
 }

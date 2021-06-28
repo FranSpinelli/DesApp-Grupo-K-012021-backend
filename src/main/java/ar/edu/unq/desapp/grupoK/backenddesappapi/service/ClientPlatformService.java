@@ -53,7 +53,7 @@ public class ClientPlatformService {
 
     public ResponseEntity getApiKeyForClientPlatformWithName(String name, String token) throws InexistentElementException, TokenValidationException {
 
-            ClientPlatform clientPlatformWithName = clientPlatformRepository.findByName(name);
+        ClientPlatform clientPlatformWithName = clientPlatformRepository.findByName(name);
 
         if (clientPlatformWithName == null) {
             throw new InexistentElementException("There is no client platform with the given name");
