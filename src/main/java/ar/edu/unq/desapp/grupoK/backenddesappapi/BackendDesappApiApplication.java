@@ -1,9 +1,12 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi;
 
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.ThirdPartyNotificator;
+import org.springframework.amqp.core.Queue;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -23,6 +26,15 @@ public class BackendDesappApiApplication {
         System.setProperty("server.servlet.context-path", "/re-senia");
         SpringApplication.run(BackendDesappApiApplication.class, args);
     }
+
+    //------------------------------------RABBITMQ QUEUE-----------------------------
+
+    @Bean
+    public Queue createQueue() {
+        return new Queue("linkQueue", false);
+    }
+
+    //------------------------------------SWAGGER------------------------------------
 
     @Bean
     public Docket swaggerConfiguration() {
