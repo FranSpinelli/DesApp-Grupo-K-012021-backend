@@ -6,6 +6,7 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ReviewRepository;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.TitleRepository;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.NoSuchElementException;
 
@@ -27,6 +28,7 @@ public abstract class AbstractService {
     protected Title findTitleByID(Integer id) throws InexistentElementException {
 
         try{
+            System.out.println("--------------FUE A LA BBDD RELACIONAL A BUSCAR LA PELI BRO--------------");
             return titleRepository.findById(id).get();
         }catch(NoSuchElementException e){
             throw new InexistentElementException("There is no Title with id: " + id);
