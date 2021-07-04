@@ -6,16 +6,24 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOError;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PremiumReviewDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PublicReviewDTO;
+import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.springframework.beans.ConfigurablePropertyAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.persistence.*;
+import javax.persistence.criteria.*;
+import javax.persistence.metamodel.Metamodel;
 import java.time.LocalDate;
 
 import java.time.LocalDate;
@@ -28,6 +36,10 @@ public class ReviewService extends AbstractService {
 
     @Autowired
     private ReviewRepository repository;
+
+
+    @PersistenceContext
+    EntityManager entityManager;
 
      @Transactional
     public ResponseEntity addNewPremiumReview(PremiumReviewDTO premiumReviewDTO) {
@@ -116,8 +128,8 @@ public class ReviewService extends AbstractService {
         }
     }
 
-    public List<Review> findAll() {
-        return this.repository.findAll();
+    public List<Review> findAllReviews() {
+       return this.repository.findAll();
     }
 
    //-------------------------------------------------------------------------------------------
@@ -144,6 +156,130 @@ public class ReviewService extends AbstractService {
         }
     }
 
+
+
+
+   /* public Collection<Review> findAll(Double rating,
+                                      Date date,
+                                      String source,
+                                      String language,
+                                      String country,
+                                      String type,
+                                      Boolean spoilerAlert)
+                                    //,String orderBy,
+                                    //String criterio)
+    {
+
+        Collection<Review> reviews = reviewRepository.findAll(rating, date, source, language, country, type, spoilerAlert);
+        return reviews;
+    }*/
+
+
+
+
+
+    //EntityManagerFactory entityManagerFactory;
+    //EntityManager entityManager;
+
+    /*public Collection<Review> findAll(String type,
+                                      Integer id,
+                                      String source,
+                                      String language,
+                                      String country,
+                                      Boolean spoilerAlert,
+                                      Double rating,
+                                      Date date,
+                                      String orderBy,
+                                      String criterio){
+*/
+        //Order order;
+
+        //EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("simplejpa");
+
+        //EntityManager entityManager= entityManagerFactory.createEntityManager();
+
+       // CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        //CriteriaQuery<Review> criteriaQuery= criteriaBuilder.createQuery(Review.class);
+        //Root<Review> root = criteriaQuery.from(Review.class);
+/*
+        Predicate[] predicates = new Predicate[8];
+        predicates[0] = criteriaBuilder.equal(root.get("id"), id);
+        predicates[1] = criteriaBuilder.equal(root.get("source"), source);
+        predicates[2] = criteriaBuilder.equal(root.get("language"), language);
+        predicates[3] = criteriaBuilder.equal(root.get("country"), country);
+        predicates[4] = criteriaBuilder.equal(root.get("spoilerAlert"), spoilerAlert);
+        predicates[5] = criteriaBuilder.equal(root.get("rating"), rating);
+        predicates[6] = criteriaBuilder.equal(root.get("date"), date);
+        predicates[7] = criteriaBuilder.equal(root.get("type"), type);
+
+        if (Objects.equals(orderBy,"rating") && Objects.equals(criterio,"asc")){
+            order = criteriaBuilder.asc(root.get("rating"));
+        }else if(Objects.equals(orderBy,"rating") && Objects.equals(criterio, "desc")){
+            order = criteriaBuilder.desc(root.get("rating"));
+        }else if (Objects.equals(orderBy, "date") && Objects.equals(criterio, "asc")) {
+            order = criteriaBuilder.asc(root.get("date"));
+        }else{
+            order = criteriaBuilder.desc(root.get("date"));
+        }
+
+        criteriaQuery.select(root).distinct(true)
+                                  .where(predicates)
+                                  .orderBy(order);
+
+        List<Review> reviews = entityManager.createQuery(criteriaQuery).getResultList();
+        //Collection<Review> reviews = query.getResultList();
+
+        return reviews;
+*/
+    public List<Review> findAllByCriteria(LinkedHashMap<String, String> fields){
+
+
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Review> query= cb.createQuery(Review.class);
+        Root<Review> root = query.from(Review.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        fields.keySet().forEach(key ->
+            {switch (key) {
+                case "id":
+                    predicates.add(cb.equal(root.get(key), fields.get(key)));
+                    break;
+                case "type":
+                    predicates.add(cb.equal(root.get(key), fields.get(key)));
+                    break;
+                case "source":
+                    predicates.add(cb.equal(root.get(key), fields.get(key)));
+                    break;
+                case "language":
+                    predicates.add(cb.equal(root.get(key), fields.get(key)));
+                    break;
+                case "country":
+                    predicates.add(cb.equal(root.get(key), fields.get(key)));
+                    break;
+                case "spoilerAlert":
+                    predicates.add(cb.equal(root.get(key), fields.get(key)));
+                    break;
+                case "rating":
+                    predicates.add(cb.equal(root.get(key), fields.get(key)));
+                    break;
+                case "date":
+                    predicates.add(cb.equal(root.get(key), fields.get(key)));
+                    break;
+                }
+            });
+
+        query.where(predicates.toArray(new Predicate[0]));
+
+        return entityManager.createQuery(query).getResultList();
+    }
+}
+
+
+
+
+
+    /*
     public Collection<Review> findAll(String type,
                                       Integer id,
                                       String source,
@@ -153,7 +289,7 @@ public class ReviewService extends AbstractService {
                                       Double rating,
                                       String orderBy,
                                       String criteria) {
-/*
+
         Sort.Direction sorting;
 
         if (criteria.toLowerCase() == "asc") {
@@ -167,7 +303,7 @@ public class ReviewService extends AbstractService {
         } else {
             orderBy = "date" ;
         }
-*/
+
         if (Objects.equals(type, "pubReview")) {
             System.out.println(type);
             PublicReview pubReview = new PublicReview();
@@ -230,7 +366,7 @@ public class ReviewService extends AbstractService {
 
             return collectionReviews;
         }
-/*
+
         if (orderBy == "rating" && criteria == "asc") {
             //return Stream.concat(premiumReview.stream(), publicReview.stream()).sorted(Comparator.comparing(Review::getRating)).collect(Collectors.toList());
             Collection<Review> collectionOrderBy = collectionReview
@@ -244,14 +380,14 @@ public class ReviewService extends AbstractService {
         if (orderBy == "date" && criteria == "dec") {
             return Stream.concat(premiumReview.stream(), publicReview.stream()).sorted(Comparator.comparing(Review::getDate).reversed()).collect(Collectors.toList());
         }
-*/
+
 
 
     }
+*/
 
 
 
-}
 
 
 

@@ -16,11 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @EnableAutoConfiguration
@@ -52,11 +50,11 @@ public class ReviewController {
     @GetMapping("/reviews")
     public ResponseEntity allReviews() {
 
-        return ResponseEntity.status(200).body(reviewService.findAll());
+        return ResponseEntity.status(200).body(reviewService.findAllReviews());
     }
 
     //-------------------------------------------------------------------------------------
-
+/*
     @GetMapping("/review")
     public Collection<Review> findByRequest(@RequestParam(required = false) String type,
                                             @RequestParam(required = false) Integer id,
@@ -69,13 +67,20 @@ public class ReviewController {
                                             @RequestParam(required = false, defaultValue = "rating") String criteria) {
 
         System.out.println(type);
-        /*System.out.println(country);
+        System.out.println(country);
         System.out.println(language);
         System.out.println(orderField);
-        System.out.println(spoilerAlert);*/
+        System.out.println(spoilerAlert);
 
         //return reviewService.findAll(type, id,source, language, country, spoilerAlert);
         return reviewService.findAll(type, id, source, language, country, spoilerAlert, rating, orderField, criteria);
+    }
+    */
+
+
+    @GetMapping("/review")
+    public List<Review> findByRequest(@RequestBody LinkedHashMap<String, String> filters) throws FileNotFoundException {
+        return reviewService.findAllByCriteria(filters);
     }
 
 }

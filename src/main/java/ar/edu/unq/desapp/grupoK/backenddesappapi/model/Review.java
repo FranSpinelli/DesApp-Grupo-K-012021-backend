@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
 
 import io.swagger.models.auth.In;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name="reviews")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Review {
+abstract public class Review {
 
     @TableGenerator(name = "Review_ID_Generator", initialValue = 20)
     @Id

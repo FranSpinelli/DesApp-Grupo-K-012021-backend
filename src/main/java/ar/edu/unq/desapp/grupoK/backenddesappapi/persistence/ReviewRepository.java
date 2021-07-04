@@ -12,12 +12,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Configuration
 @Repository
-public interface ReviewRepository extends CrudRepository<Review, Integer> {
+public interface ReviewRepository extends CrudRepository<Review, Integer>{
 
 
 
@@ -26,12 +27,18 @@ public interface ReviewRepository extends CrudRepository<Review, Integer> {
         List<Review> findAll();
 
 
+
+
         //Collection<Review> findAll(Example<Review> example, Sort by);
-        Collection<Review> findAll(Example<Review> example);
+        //Collection<Review> findAll(Example<Review> example);
 
+        /*@Query(value = "SELECT r FROM REVIEWS WHERE r.rating =: rating AND r.date =: date AND r.sourcePlatform = sourcePlatform AND r.language = :language " +
+                "AND r.country = country AND r.dtype = dtype AND r.spoilerAlert = spoilerAlert;", nativeQuery = true)
+        Collection <Review> findAll(@Param("rating") Double rating, @Param("date") Date date, @Param("sourcePlatform") String sourcePlatform,
+                                    @Param("language") String language, @Param("country") String country, @Param("dtype") String dtype,
+                                    @Param("spoilerAlert") Boolean spoilerAlert);
 
-
-
+*/
 
 
 /*
