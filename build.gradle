@@ -22,8 +22,8 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '2.4.4'
     //lombok
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
-    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
     //validations dependencies
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.5.1'
     implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
