@@ -43,6 +43,15 @@ class TitleTest {
     }
 
     @Test
+    void TitleThrowsAnExceptionWhenInvalidDateIsReceivedCase3(){
+        //CASE 3: a title is created when an start year is bigger than end year
+        assertThrows(InvalidDatesError.class, () -> {
+            TitleCategory aCategory = new TitleCategory(1, "movie");
+            new Title(1,"Titanic", false, 2021, 2020,100, aCategory);
+        });
+    }
+
+    @Test
     void TitleSettersTest() throws InvalidDatesError {
         TitleCategory aCategory = new TitleCategory(1, "movie");
         Title aMovie = new Title(1,"Titanic", false, 1998, null,100, aCategory);
@@ -85,5 +94,19 @@ class TitleTest {
         aMovie.addReview(review2);
 
         assertEquals(aMovie.getReviews().size(), 2);
+    }
+
+    @Test
+    void TitleCanAddSubscribers() throws InvalidDatesError {
+
+        TitleCategory aCategory = new TitleCategory(1, "movie");
+        Title aMovie = new Title(1,"Titanic", false, 1998, null,100, aCategory);
+
+        assertEquals(0, aMovie.getTitleSubscribers().size());
+
+        aMovie.addSubscriber("unSubscriber");
+
+        assertEquals(1, aMovie.getTitleSubscribers().size());
+        assertEquals("unSubscriber", aMovie.getTitleSubscribers().get(0));
     }
 }

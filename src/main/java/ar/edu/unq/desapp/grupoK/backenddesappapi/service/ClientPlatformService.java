@@ -2,10 +2,13 @@ package ar.edu.unq.desapp.grupoK.backenddesappapi.service;
 
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.ClientPlatform;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ClientPlatformRepository;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceHelpers.JwtToken;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.ClientAccessException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.TokenValidationException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.*;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ResponseDTO.ApiKeyResponseDTO;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ResponseDTO.TokenResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,8 +22,7 @@ public class ClientPlatformService {
     @Autowired
     private ClientPlatformRepository clientPlatformRepository;
 
-    public ResponseEntity registerNewClientPlatform(RegisterDTO registerDTO) throws EmptyDTOException, ClientAccessException {
-        registerDTO.assertEmpty();
+    public ResponseEntity registerNewClientPlatform(RegisterDTO registerDTO) throws ClientAccessException {
 
         isThereAPlatformWithSameName(registerDTO.getClientPlatformName());
 
@@ -35,9 +37,7 @@ public class ClientPlatformService {
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity loginClientPlatform(LoginDTO loginDTO) throws EmptyDTOException, ClientAccessException {
-
-        loginDTO.assertEmpty();
+    public ResponseEntity loginClientPlatform(LoginDTO loginDTO) throws ClientAccessException {
 
         ClientPlatform clientPlatformWithName = clientPlatformRepository.findByName(loginDTO.getClientPlatformName());
 
@@ -54,7 +54,7 @@ public class ClientPlatformService {
 
     public ResponseEntity getApiKeyForClientPlatformWithName(String name, String token) throws InexistentElementException, TokenValidationException {
 
-            ClientPlatform clientPlatformWithName = clientPlatformRepository.findByName(name);
+        ClientPlatform clientPlatformWithName = clientPlatformRepository.findByName(name);
 
         if (clientPlatformWithName == null) {
             throw new InexistentElementException("There is no client platform with the given name");

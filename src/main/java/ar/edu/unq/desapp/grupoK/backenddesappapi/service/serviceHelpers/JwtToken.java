@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoK.backenddesappapi.service;
+package ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceHelpers;
 
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.TokenValidationException;
 import io.jsonwebtoken.*;
@@ -35,7 +35,6 @@ public class JwtToken {
         }
     }
     static private String getTokenName(String token){
-        //System.out.println("algo: " + Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().get("sub",String.class));
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().get("sub",String.class);
     }
 }

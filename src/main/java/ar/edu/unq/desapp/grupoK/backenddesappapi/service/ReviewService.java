@@ -6,23 +6,30 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Review;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedElementException;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.EmptyDTOException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PremiumReviewDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PublicReviewDTO;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
 public class ReviewService extends AbstractService {
 
-    @Transactional
-    public ResponseEntity addNewPremiumReview(PremiumReviewDTO premiumReviewDTO) throws EmptyDTOException, InexistentElementException, RepeatedElementException {
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
-        premiumReviewDTO.assertEmpty();
+    @Autowired
+    private Queue linkQueue;
+
+    @Transactional
+    public ResponseEntity addNewPremiumReview(PremiumReviewDTO premiumReviewDTO) throws InexistentElementException, RepeatedElementException {
 
         Title titleWithID = findTitleByID(premiumReviewDTO.getTitleID());
 
@@ -37,13 +44,13 @@ public class ReviewService extends AbstractService {
         Review savedReview = reviewRepository.save(aPremiumReview);
         titleRepository.save(titleWithID);
 
-            return ResponseEntity.ok().body(savedReview);
+        sendNotificationsToSubscribers(titleWithID);
+
+        return ResponseEntity.ok().body(savedReview);
     }
 
     @Transactional
-    public ResponseEntity addNewPublicReview(PublicReviewDTO publicReviewDTO) throws EmptyDTOException, InexistentElementException, RepeatedElementException {
-
-        publicReviewDTO.assertEmpty();
+    public ResponseEntity addNewPublicReview(PublicReviewDTO publicReviewDTO) throws InexistentElementException, RepeatedElementException {
 
         Title titleWithID = findTitleByID(publicReviewDTO.getTitleID());
 
@@ -58,6 +65,9 @@ public class ReviewService extends AbstractService {
         titleWithID.addReview(aPublicReview);
         Review savedReview = reviewRepository.save(aPublicReview);
         titleRepository.save(titleWithID);
+
+        sendNotificationsToSubscribers(titleWithID);
+
         return ResponseEntity.ok().body(savedReview);
     }
 
@@ -87,6 +97,11 @@ public class ReviewService extends AbstractService {
     }
 
     //-------------------------------------------------------------------------------------------
+
+    private void sendNotificationsToSubscribers(Title titleWithID) {
+        titleWithID.getTitleSubscribers().forEach(subscriber ->
+                rabbitTemplate.convertAndSend(linkQueue.getName(),subscriber));
+    }
 
     private void checkForRepeatedPremiumReviewInTitle(Integer aTitleID, String aPlatformWriterID, String aSourcePlatform) throws RepeatedElementException {
 
