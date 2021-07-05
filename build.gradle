@@ -41,6 +41,8 @@ dependencies {
     //redis cache
     implementation group: 'redis.clients', name: 'jedis', version: '3.6.0'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.5.2'
+    //archunit
+    testImplementation group: 'com.tngtech.archunit', name: 'archunit-junit4', version: '0.18.0'
 }
 
 jacoco {

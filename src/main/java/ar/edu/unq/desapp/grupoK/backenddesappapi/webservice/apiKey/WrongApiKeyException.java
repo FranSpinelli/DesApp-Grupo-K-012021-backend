@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice;
+package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.apiKey;
 
 public class WrongApiKeyException extends Throwable {
     public WrongApiKeyException(){

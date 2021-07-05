@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice;
+package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.apiKey;
 
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.ClientPlatform;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ClientPlatformRepository;
@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.servlet.HandlerMapping;
-
-import java.util.LinkedHashMap;
 
 @Aspect
 @Component

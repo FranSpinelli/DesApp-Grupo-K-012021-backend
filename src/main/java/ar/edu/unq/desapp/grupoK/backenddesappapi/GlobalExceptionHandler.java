@@ -4,7 +4,7 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.RepeatedElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.TokenValidationException;
-import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.WrongApiKeyException;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.apiKey.WrongApiKeyException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ResponseDTO.GenericErrorResponseDTO;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.ResponseDTO.ValidationErrorResponseDTO;
 import org.springframework.http.ResponseEntity;

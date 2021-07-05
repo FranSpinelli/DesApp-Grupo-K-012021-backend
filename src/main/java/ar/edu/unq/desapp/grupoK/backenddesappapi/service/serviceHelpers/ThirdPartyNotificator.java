@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoK.backenddesappapi.service;
+package ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceHelpers;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;

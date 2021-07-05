@@ -6,6 +6,7 @@ import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.TitleGenericInfo;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.ClientPlatformRepository;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.persistence.TitleRepository;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceHelpers.JwtToken;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.InexistentElementException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.TokenValidationException;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.TitleSubscriptionDTO;

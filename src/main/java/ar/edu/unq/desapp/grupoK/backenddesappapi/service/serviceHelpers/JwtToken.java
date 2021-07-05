@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoK.backenddesappapi.service;
+package ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceHelpers;
 
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.serviceLevelExceptions.TokenValidationException;
 import io.jsonwebtoken.*;

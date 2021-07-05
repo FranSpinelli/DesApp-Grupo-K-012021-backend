@@ -1,5 +1,6 @@
-package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
+package model;
 
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.TitleGenericInfo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
