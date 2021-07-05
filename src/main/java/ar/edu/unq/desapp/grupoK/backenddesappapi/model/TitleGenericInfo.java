@@ -2,13 +2,14 @@ package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
 
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @RedisHash("Titles")
