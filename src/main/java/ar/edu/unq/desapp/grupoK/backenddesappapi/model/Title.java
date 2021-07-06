@@ -28,8 +28,6 @@ public class Title {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Review> titleReviews;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "")
     private List<FilmWorker> titleFilmworkers;
 
     public Title() {}
