@@ -29,7 +29,7 @@ public interface ReviewRepository extends CrudRepository<Review, Integer>{
 
 
 
-        //Collection<Review> findAll(Example<Review> example, Sort by);
+        Collection<Review> findAll(Example<Review> example, Sort by);
         //Collection<Review> findAll(Example<Review> example);
 
         /*@Query(value = "SELECT r FROM REVIEWS WHERE r.rating =: rating AND r.date =: date AND r.sourcePlatform = sourcePlatform AND r.language = :language " +

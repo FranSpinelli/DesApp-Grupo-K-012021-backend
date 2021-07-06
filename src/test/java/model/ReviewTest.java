@@ -23,7 +23,7 @@ class ReviewTest {
         assertEquals(aPremiumReview.getSummaryDescription(), "desc");
         assertEquals(aPremiumReview.getRating(), 2.0,0);
         assertEquals(aPremiumReview.getDate(), date);
-        assertEquals(aPremiumReview.getSourcePlatform(), "platform");
+        assertEquals(aPremiumReview.getSource_platform(), "platform");
         assertEquals(aPremiumReview.getPlatformWriterID(), "P1");
         assertEquals(aPremiumReview.getLanguage(), "lenguague");
         assertEquals(aPremiumReview.getReports().size(), 0);
@@ -35,7 +35,7 @@ class ReviewTest {
         aPremiumReview.setSummaryDescription("desc2");
         aPremiumReview.setRating(3.0);
         aPremiumReview.setDate(date2);
-        aPremiumReview.setSourcePlatform("platform2");
+        aPremiumReview.setSource_platform("platform2");
         aPremiumReview.setPlatformWriterID("P2");
         aPremiumReview.setLanguage("lenguague2");
 
@@ -44,7 +44,7 @@ class ReviewTest {
         assertEquals(aPremiumReview.getSummaryDescription(), "desc2");
         assertEquals(aPremiumReview.getRating(), 3.0,0);
         assertEquals(aPremiumReview.getDate(), date2);
-        assertEquals(aPremiumReview.getSourcePlatform(), "platform2");
+        assertEquals(aPremiumReview.getSource_platform(), "platform2");
         assertEquals(aPremiumReview.getPlatformWriterID(), "P2");
         assertEquals(aPremiumReview.getLanguage(), "lenguague2");
     }

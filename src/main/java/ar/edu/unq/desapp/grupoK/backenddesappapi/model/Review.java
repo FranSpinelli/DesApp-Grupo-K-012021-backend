@@ -1,8 +1,5 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.model;
 
-import io.swagger.models.auth.In;
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,7 +24,7 @@ abstract public class Review {
     @Column
     private LocalDate date;
     @Column
-    private String sourcePlatform;
+    private String source_platform;
     @Column
     private String platformWriterID;
     @Column
@@ -38,12 +35,13 @@ abstract public class Review {
     private Integer nmbrDislike;
 
 
+
     @OneToMany(fetch = FetchType.LAZY)
     private List<Report> reports;
 
     public  Review() {}
+    public String type;
 
-    public String typeReview;
 
     public Review(String aExtendedDescription, String aSumaryDescription, Double aRaiting, LocalDate aDate,
                   String aSourcePlatform, String aPlatformWriterID, String aLanguage){
@@ -52,13 +50,17 @@ abstract public class Review {
         this.summaryDescription = aSumaryDescription;
         this.rating = aRaiting;
         this.date = aDate;
-        this.sourcePlatform = aSourcePlatform;
+        this.source_platform = aSourcePlatform;
         this.platformWriterID = aPlatformWriterID;
         this.language = aLanguage;
         this.nmbrLike = 0;
         this.nmbrDislike = 0;
 
+
+
+
         reports = new ArrayList<Report>();
+
     }
 
     public Integer getId() { return id; }
@@ -79,8 +81,8 @@ abstract public class Review {
         return date;
     }
 
-    public String getSourcePlatform(){
-        return sourcePlatform;
+    public String getSource_platform(){
+        return source_platform;
     }
 
     public String getPlatformWriterID() {
@@ -117,8 +119,8 @@ abstract public class Review {
         this.date = date;
     }
 
-    public void setSourcePlatform(String sourcePlatform) {
-        this.sourcePlatform = sourcePlatform;
+    public void setSource_platform(String source_platform) {
+        this.source_platform = source_platform;
     }
 
     public void setLanguage(String language) {
@@ -145,7 +147,7 @@ abstract public class Review {
         return reports;
     }
 
-    public void setTypeReview(String type){ this.typeReview = type;}
+    public void setType(String type){ this.type = type;}
 
 
 }

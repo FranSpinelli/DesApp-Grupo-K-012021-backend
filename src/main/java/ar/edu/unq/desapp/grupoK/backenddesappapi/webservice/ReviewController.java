@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,7 +55,7 @@ public class ReviewController {
     }
 
     //-------------------------------------------------------------------------------------
-/*
+
     @GetMapping("/review")
     public Collection<Review> findByRequest(@RequestParam(required = false) String type,
                                             @RequestParam(required = false) Integer id,
@@ -64,25 +65,26 @@ public class ReviewController {
                                             @RequestParam(required = false) Boolean spoilerAlert,
                                             @RequestParam(required = false) Double rating,
                                             @RequestParam(required = false, defaultValue = "asc") String orderField,
-                                            @RequestParam(required = false, defaultValue = "rating") String criteria) {
+                                            @RequestParam(required = false, defaultValue = "rating") String criterio)
+                                            {
 
-        System.out.println(type);
+        /*System.out.println(type);
         System.out.println(country);
         System.out.println(language);
         System.out.println(orderField);
         System.out.println(spoilerAlert);
-
-        //return reviewService.findAll(type, id,source, language, country, spoilerAlert);
-        return reviewService.findAll(type, id, source, language, country, spoilerAlert, rating, orderField, criteria);
+*/
+        //return reviewService.findAllByCriteria(type, id,source, language, country, spoilerAlert, rating);
+        return reviewService.findAllByCriteria(type, id, source, language, country, spoilerAlert, rating, orderField, criterio);
     }
-    */
 
 
+/*
     @GetMapping("/review")
     public List<Review> findByRequest(@RequestBody LinkedHashMap<String, String> filters) throws FileNotFoundException {
         return reviewService.findAllByCriteria(filters);
     }
-
+*/
 }
 
 

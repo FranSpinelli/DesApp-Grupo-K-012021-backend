@@ -19,17 +19,17 @@ class PublicReviewTest {
         PublicReview aPublicReview = new PublicReview( "description", "desc", 2.0, false,
                 date, "Netflix", "N12", "nick", "language", "position", "type");
 
-        assertEquals(aPublicReview.getSpoilerAlert(), false);
+        assertEquals(aPublicReview.getSpoiler_alert(), false);
         assertEquals(aPublicReview.getNickName(), "nick");
         assertEquals(aPublicReview.getGeographicPosition(), "position");
 
         Date date2 = new GregorianCalendar(2015, Calendar.FEBRUARY, 11).getTime();
 
         aPublicReview.setGeographicPosition("position2");
-        aPublicReview.setSpoilerAlert(true);
+        aPublicReview.setSpoiler_alert(true);
         aPublicReview.setNickName("nick2");
 
-        assertEquals(aPublicReview.getSpoilerAlert(), true);
+        assertEquals(aPublicReview.getSpoiler_alert(), true);
         assertEquals(aPublicReview.getNickName(), "nick2");
         assertEquals(aPublicReview.getGeographicPosition(), "position2");
     }

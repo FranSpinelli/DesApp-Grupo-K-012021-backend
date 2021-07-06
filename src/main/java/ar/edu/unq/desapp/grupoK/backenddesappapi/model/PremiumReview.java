@@ -11,10 +11,11 @@ public class PremiumReview extends Review {
 
     public String typeReview;
 
+
     public PremiumReview(String aExtendedDescription, String aSumaryDescription, Double aRaiting, LocalDate aDate,
                          String aSourcePlatform, String aPlatformWriterID, String aLanguage, String typeReview) {
 
-        super(aExtendedDescription, aSumaryDescription, aRaiting, aDate, aSourcePlatform, aPlatformWriterID, aLanguage);
+        super(aExtendedDescription, aSumaryDescription, aRaiting, aDate, aSourcePlatform, aPlatformWriterID,aSourcePlatform);
 
         this.typeReview = typeReview;
 

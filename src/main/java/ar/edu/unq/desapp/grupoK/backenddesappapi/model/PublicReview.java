@@ -8,11 +8,11 @@ import java.time.LocalDate;
 public class PublicReview extends Review {
 
     @Column
-    private Boolean spoilerAlert;
+    private Boolean spoiler_alert;
     @Column
     private String nickName;
     @Column
-    private String geographicPosition;
+    private String geographic_position;
 
     private String type;
 
@@ -28,15 +28,15 @@ public class PublicReview extends Review {
 
         super(aExtendedDescription, aSumaryDescription, aRating, aDate, aSourcePlatform, aPlatformUserID, aLenguage);
 
-        this.spoilerAlert =  aSpoilerAlert;
+        this.spoiler_alert =  aSpoilerAlert;
         this.nickName = aNickName;
-        this.geographicPosition = aGeogrephicPosition;
+        this.geographic_position = aGeogrephicPosition;
         this.type = type;
 
     }
 
-    public Boolean getSpoilerAlert(){
-        return spoilerAlert;
+    public Boolean getSpoiler_alert(){
+        return spoiler_alert;
     }
 
     public String getNickName(){
@@ -44,13 +44,13 @@ public class PublicReview extends Review {
     }
 
     public String getGeographicPosition(){
-        return geographicPosition;
+        return geographic_position;
     }
 
     public String getType(){ return type;}
 
-    public void setSpoilerAlert(Boolean spoilerAlert) {
-        this.spoilerAlert = spoilerAlert;
+    public void setSpoiler_alert(Boolean spoiler_alert) {
+        this.spoiler_alert = spoiler_alert;
     }
 
     public void setNickName(String nickName) {
@@ -58,7 +58,7 @@ public class PublicReview extends Review {
     }
 
     public void setGeographicPosition(String geographicPosition) {
-        this.geographicPosition = geographicPosition;
+        this.geographic_position = geographicPosition;
     }
 
     public void setType(String type){ this.type = type;  }
