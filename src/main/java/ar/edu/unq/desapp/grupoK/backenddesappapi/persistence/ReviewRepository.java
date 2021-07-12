@@ -43,10 +43,10 @@ public interface ReviewRepository extends CrudRepository<Review, Integer>{
 
 /*
         SELECT * FROM REVIEWS FROM TITLES_TITLE_REVIEWS JOIN REVIEWS ON
-        TITLES_TITLE.REVIEWS_ID = REVIEWS.ID WHERE TITLE_ID = :titleID AND DTYPE = 'PremiumReview' ; nativeQuery = true
+        TITLES_TITLE.REVIEWS_ID = REVIEWS.ID WHERE TITLE_ID = :titleID AND DTYPE = 'PremiumReview' ; nativeQuery = true)
 */
         @Query(value = "SELECT DTYPE, ID, DATE, EXTENDED_DESCRIPTION, LANGUAGE, NMBR_DISLIKE, NMBR_LIKE, PLATFORM_WRITERID, RATING, SOURCE_PLATFORM," +
-                " SUMMARY_DESCRIPTION, GEOGRAPHIC_POSITION, NICK_NAME, SPOILER_ALERT FROM TITLES_TITLE_REVIEWS JOIN  REVIEWS ON" +
+                " SUMMARY_DESCRIPTION, GEOGRAPHIC_POSITION, NICK_NAME, SPOILER_ALERT, TYPE FROM TITLES_TITLE_REVIEWS JOIN  REVIEWS ON" +
                 " TITLES_TITLE_REVIEWS.TITLE_REVIEWS_ID = REVIEWS.ID WHERE TITLE_ID = :titleID AND DTYPE = 'PremiumReview';", nativeQuery = true)
         Collection<PremiumReview> getPremiumReviewsForTitleWithID(@Param("titleID") Integer titleID);
 

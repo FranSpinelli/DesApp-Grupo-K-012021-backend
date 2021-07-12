@@ -1,14 +1,21 @@
 package ar.edu.unq.desapp.grupoK.backenddesappapi.webservice;
 
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.FilmWorker;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.model.PublicReview;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.model.Title;
 import ar.edu.unq.desapp.grupoK.backenddesappapi.service.TitleService;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.FilmWorkerDTO;
+import ar.edu.unq.desapp.grupoK.backenddesappapi.webservice.dto.PublicReviewDTO;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
@@ -17,16 +24,15 @@ public class TitleController {
     @Autowired
     private TitleService titleService;
 
-    /*@GetMapping("/titles")
+    @GetMapping("/titles")
     public ResponseEntity allTitles() {
 
         return ResponseEntity.status(200).body(titleService.findAll());
-    }*/
-
+    }
+/*
     @GetMapping("/title")
     public Collection<Title> findByRequest(
-                                           @RequestParam(required = false) String originaTitle,
-                                           @RequestParam(required = false) Boolean isAnAdultFilm,
+                                           @RequestParam(required = false) Integer id,
                                            @RequestParam(required = false) Integer startYear,
                                            @RequestParam(required = false) Integer endYear,
                                            @RequestParam(required = false) Integer runtimeMinutes,
@@ -34,11 +40,22 @@ public class TitleController {
                                            @RequestParam(required = false) Double rating) {
 
 
-        return titleService.findAll(originaTitle, isAnAdultFilm, startYear, endYear, runtimeMinutes, category, rating);
+        return titleService.findAllByCriteria(originaTitle, isAnAdultFilm, startYear, endYear, runtimeMinutes, category, rating);
 
     }
+    */
+    @GetMapping("/title")
+    public List<Title> findByRequest(@RequestBody LinkedHashMap<String, String> filters) throws FileNotFoundException {
+        return titleService.findAllByCriteria(filters);
+    }
 
-
+    @PostMapping("/title")
+    @ApiOperation(value = "Post a new FilmWorker",
+            notes = "Provide a Title id and the FilmWorker",
+            response = FilmWorker.class)
+    public ResponseEntity addNewFilmWorker(@RequestBody FilmWorkerDTO filmWorkerDTO) {
+        return titleService.addNewFilmworker(filmWorkerDTO);
+    }
 
 
 

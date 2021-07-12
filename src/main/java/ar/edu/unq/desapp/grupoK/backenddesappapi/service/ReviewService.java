@@ -44,10 +44,11 @@ public class ReviewService extends AbstractService {
             LocalDate currentDate = LocalDate.now();
             Review aPremiumReview = new PremiumReview(premiumReviewDTO.getExtendedDescription(), premiumReviewDTO.getSummaryDescription(),
                     premiumReviewDTO.getRating(), currentDate, premiumReviewDTO.getSourcePlatform(), premiumReviewDTO.getPlatformWriterID(),
-                    premiumReviewDTO.getLanguage(), premiumReviewDTO.getType());
+                    premiumReviewDTO.getLanguage(), premiumReviewDTO.getType(), premiumReviewDTO.getTitleID());
 
             titleWithID.addReview(aPremiumReview);
             Review savedReview = reviewRepository.save(aPremiumReview);
+            titleWithID.setStars();
             titleRepository.save(titleWithID);
 
             return ResponseEntity.ok().body(savedReview);
@@ -70,11 +71,13 @@ public class ReviewService extends AbstractService {
             Review aPublicReview = new PublicReview(publicReviewDTO.getExtendedDescription(), publicReviewDTO.getSummaryDescription(),
                     publicReviewDTO.getRating(), publicReviewDTO.getSpoilerAlert(), currentDate, publicReviewDTO.getSourcePlatform(),
                     publicReviewDTO.getPlatformWriterID(), publicReviewDTO.getNickName(), publicReviewDTO.getLanguage(),
-                    publicReviewDTO.getGeographicPosition(), publicReviewDTO.getType());
+                    publicReviewDTO.getGeographicPosition(), publicReviewDTO.getType(), publicReviewDTO.getTitleID());
 
             titleWithID.addReview(aPublicReview);
             Review savedReview = reviewRepository.save(aPublicReview);
+            titleWithID.setStars();
             titleRepository.save(titleWithID);
+
             return ResponseEntity.ok().body(savedReview);
         } catch (RepeatedReviewException | InexistentTitleWithIDError | EmptyDTOError e) {
             return ResponseEntity.status(400).body(e.getMessage());
@@ -170,7 +173,7 @@ public class ReviewService extends AbstractService {
         CriteriaQuery<PublicReview> query1 = cb.createQuery(PublicReview.class);
         Root<Review> root = query.from(Review.class);
 
-        //Root<PublicReview> rootPubReview = query.from(PublicReview.class);
+        Root<PublicReview> rootPubReview = query.from(PublicReview.class);
 
         List<Predicate> predicates = new ArrayList<>();
         Root<PublicReview> rootPub = query.from(PublicReview.class);
@@ -200,10 +203,10 @@ public class ReviewService extends AbstractService {
                     predicates.add(cb.equal(root.get(key), fields.get(key)));
                     break;
                 case "geographic_position":
-                    predicates.add(cb.equal(root.get(key), fields.get(key)));
+                    predicates.add(cb.equal(rootPubReview.get(key), fields.get(key)));
                     break;
                 case "spoiler_alert":
-                    predicates.add(cb.equal(root.get(key), fields.get(key)));
+                    predicates.add(cb.equal(rootPubReview.get(key), fields.get(key)));
                     break;
                 case "rating":
                     predicates.add(cb.equal(root.get(key), fields.get(key)));
@@ -304,8 +307,7 @@ public class ReviewService extends AbstractService {
                                                 Boolean spoilerAlert,
                                                 Double rating,
                                                 String orderBy,
-                                                String criterio
-                                                ) {
+                                                String criterio) {
 
         Sort.Direction sorting;
 

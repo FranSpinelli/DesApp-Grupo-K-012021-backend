@@ -15,66 +15,108 @@ public class Title {
     @Column
     private Boolean isAnAdultFilm;
     @Column
-    private Integer startYear;
+    private Integer start_year;
     @Column
-    private Integer endYear;
+    private Integer end_year;
     @Column
     private Integer runtimeMinutes;
+    @Column
+    private String category;
+    @Column
+    private String style;
+    @Column
+    private Double stars;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "title_category_id")
-    private TitleCategory category;
+    private String director;
+
+    private String writer;
+
+    private String actor;
+
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "title_category_id")
+    //private TitleCategory category;
+
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Review> titleReviews;
 
+    @OneToMany(fetch = FetchType.LAZY)
     private List<FilmWorker> titleFilmworkers;
 
-    public Title() {}
+    public Title() {
+    }
 
     public Title(Integer anID, String anOriginalTitle, Boolean anIsAdultIndicator, Integer aStartYear,
-                 Integer anEndYear, Integer aRuntimeMinutesAmount, TitleCategory aTitleCategory) throws InvalidDatesError {
+                 Integer anEndYear, Integer aRuntimeMinutesAmount, String aCategory, String style
+                 ) throws InvalidDatesError {
 
         YearVerificator yearVerificator = new YearVerificator();
 
-        if(yearVerificator.isAValidStartYear(aStartYear) &&
-                yearVerificator.isAValidEndYearRegardToAStartYear(aStartYear, anEndYear)){
+        if (yearVerificator.isAValidStartYear(aStartYear) &&
+                yearVerificator.isAValidEndYearRegardToAStartYear(aStartYear, anEndYear)) {
             this.id = anID;
             this.originalTitle = anOriginalTitle;
             this.isAnAdultFilm = anIsAdultIndicator;
-            this.startYear = aStartYear;
-            this.endYear = anEndYear;
+            this.start_year = aStartYear;
+            this.end_year = anEndYear;
             this.runtimeMinutes = aRuntimeMinutesAmount;
+            this.category = aCategory;
+            this.style = style;
+            this.stars = 0.0;
+            this.director = "";
+            this.writer = "";
+            this.actor = "";
             this.titleReviews = new ArrayList<Review>();
-            this.category = aTitleCategory;
-        }else{
+            this.titleFilmworkers = new ArrayList<FilmWorker>();
+        } else {
             throw new InvalidDatesError("Wrong dates passed as parameters");
         }
     }
 
-    public Integer getId() { return id; }
+    public Integer getId() {
+        return id;
+    }
 
     public String getOriginalTitle() {
         return originalTitle;
     }
 
-    public Boolean isAnAdultFilm() { return isAnAdultFilm; }
-
-    public Integer getStartYear() { return startYear; }
-
-    public Integer getEndYear() { return endYear; }
-
-    public Integer getRuntimeMinutes() { return runtimeMinutes; }
-
-    public List<Review> getReviews(){
-     return this.titleReviews;
+    public Boolean isAnAdultFilm() {
+        return isAnAdultFilm;
     }
+
+    public Integer getStart_year() {
+        return start_year;
+    }
+
+    public Integer getEndYear() {
+        return end_year;
+    }
+
+    public Integer getRuntimeMinutes() {
+        return runtimeMinutes;
+    }
+
+    public List<Review> getReviews() {
+        return this.titleReviews;
+    }
+
+    public List<FilmWorker> getFilmworkers(){ return this.titleFilmworkers;}
 
     public String getCategory() {
-        return category.getCategoryName();
+        return category;
     }
 
-    public void setId(Integer id){
+    public String getStyle() {
+        return style;
+    }
+
+    public Double getStars() {
+        return stars;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -87,22 +129,48 @@ public class Title {
     }
 
     public void setEndYear(Integer endYear) {
-        this.endYear = endYear;
+        this.end_year = endYear;
     }
 
     public void setRuntimeMinutes(Integer runtimeMinutes) {
         this.runtimeMinutes = runtimeMinutes;
     }
 
-    public void setStartYear(Integer startYear) {
-        this.startYear = startYear;
+    public void setStart_year(Integer start_year) {
+        this.start_year = start_year;
     }
 
-    public void setCategory(String category) {
-        this.category = new TitleCategory();
+    public void setTitleCategory(String category) {
+        this.category = category;
     }
 
-    public void addReview(Review aReview){
+    public void setTitle_style(String style) {
+        this.style = style;
+    }
+
+    public void setTitle_stars(Double stars) {
+        this.stars = stars;
+    }
+
+    public void addReview(Review aReview) {
         this.titleReviews.add(aReview);
     }
+
+    public void addFilmWorker(FilmWorker filmWorker) {
+        this.titleFilmworkers.add(filmWorker);
+    }
+
+
+    public void setStars() {
+        Double cantStars = 0.0;
+        for(Review review: this.getReviews()){
+            cantStars =+ review.getRating();
+        }
+        this.setTitle_stars(cantStars);
+    }
+
+
+
+
+
 }

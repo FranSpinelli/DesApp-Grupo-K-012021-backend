@@ -68,12 +68,7 @@ public class ReviewController {
                                             @RequestParam(required = false, defaultValue = "rating") String criterio)
                                             {
 
-        /*System.out.println(type);
-        System.out.println(country);
-        System.out.println(language);
-        System.out.println(orderField);
-        System.out.println(spoilerAlert);
-*/
+
         //return reviewService.findAllByCriteria(type, id,source, language, country, spoilerAlert, rating);
         return reviewService.findAllByCriteria(type, id, source, language, country, spoilerAlert, rating, orderField, criterio);
     }

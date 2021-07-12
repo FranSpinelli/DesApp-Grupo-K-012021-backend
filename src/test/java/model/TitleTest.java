@@ -18,7 +18,7 @@ class TitleTest {
         assertEquals(aMovie.getId(), 1);
         assertEquals(aMovie.getOriginalTitle(), "Titanic");
         assertFalse(aMovie.isAnAdultFilm());
-        assertEquals(aMovie.getStartYear(), 1998);
+        assertEquals(aMovie.getStart_year(), 1998);
         assertNull(aMovie.getEndYear());
         assertEquals(aMovie.getRuntimeMinutes(),100);
         assertEquals(aMovie.getCategory(), "movie");
@@ -50,7 +50,7 @@ class TitleTest {
         assertEquals(aMovie.getId(), 1);
         assertEquals(aMovie.getOriginalTitle(), "Titanic");
         assertFalse(aMovie.isAnAdultFilm());
-        assertEquals(aMovie.getStartYear(), 1998);
+        assertEquals(aMovie.getStart_year(), 1998);
         assertNull(aMovie.getEndYear());
         assertEquals(aMovie.getRuntimeMinutes(),100);
         assertEquals(aMovie.getCategory(), "movie");
@@ -58,14 +58,14 @@ class TitleTest {
         aMovie.setId(2);
         aMovie.setOriginalTitle("Harry Potter");
         aMovie.setIsAnAdultFilmIndicator(true);
-        aMovie.setStartYear(2000);
+        aMovie.setStart_year(2000);
         aMovie.setEndYear(2010);
         aMovie.setRuntimeMinutes(200);
 
         assertEquals(aMovie.getId(), 2);
         assertEquals(aMovie.getOriginalTitle(), "Harry Potter");
         assertTrue(aMovie.isAnAdultFilm());
-        assertEquals(aMovie.getStartYear(), 2000);
+        assertEquals(aMovie.getStart_year(), 2000);
         assertEquals(aMovie.getEndYear(), 2010);
         assertEquals(aMovie.getRuntimeMinutes(),200);
     }

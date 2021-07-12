@@ -33,6 +33,8 @@ abstract public class Review {
     private Integer nmbrLike;
     @Column
     private Integer nmbrDislike;
+    @Column
+    private Integer title_id;
 
 
 
@@ -44,7 +46,7 @@ abstract public class Review {
 
 
     public Review(String aExtendedDescription, String aSumaryDescription, Double aRaiting, LocalDate aDate,
-                  String aSourcePlatform, String aPlatformWriterID, String aLanguage){
+                  String aSourcePlatform, String aPlatformWriterID, String aLanguage, Integer title_id){
 
         this.extendedDescription = aExtendedDescription;
         this.summaryDescription = aSumaryDescription;
@@ -53,6 +55,7 @@ abstract public class Review {
         this.source_platform = aSourcePlatform;
         this.platformWriterID = aPlatformWriterID;
         this.language = aLanguage;
+        this.title_id = title_id;
         this.nmbrLike = 0;
         this.nmbrDislike = 0;
 
@@ -62,6 +65,10 @@ abstract public class Review {
         reports = new ArrayList<Report>();
 
     }
+
+    public Integer gettTitle_id() { return title_id;  }
+
+    public void setTitle_id(Integer id_title) { this.title_id = id_title;     }
 
     public Integer getId() { return id; }
 

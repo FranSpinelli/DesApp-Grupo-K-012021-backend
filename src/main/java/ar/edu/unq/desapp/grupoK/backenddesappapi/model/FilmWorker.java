@@ -16,14 +16,16 @@ public class FilmWorker {
     private Integer birthYear;
     @Column
     private Integer deathYear;
+    @Column
+    private String filmworkerCategory;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "filmworker_category_id")
-    private FilmWorkerCategory category;
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "filmworker_category_id")
+    //private FilmWorkerCategory category;
 
     public FilmWorker() {}
 
-    public FilmWorker(Integer anId, String aName, String aSurname, Integer aBirthYear, Integer aDeathYear, FilmWorkerCategory aCategory) throws InvalidDatesError {
+    public FilmWorker(Integer anId, String aName, String aSurname, Integer aBirthYear, Integer aDeathYear, String aFilmworkerCategory) throws InvalidDatesError {
 
         YearVerificator yearVerificatior = new YearVerificator();
 
@@ -33,7 +35,7 @@ public class FilmWorker {
             this.surname = aSurname;
             this.birthYear = aBirthYear;
             this.deathYear = aDeathYear;
-            this.category = aCategory;
+            this.filmworkerCategory = aFilmworkerCategory;
         }else{
             throw new InvalidDatesError("Wrong dates passed as parameters");
         }
@@ -61,7 +63,7 @@ public class FilmWorker {
     }
 
     public String getCategory() {
-        return category.getCategoryName();
+        return filmworkerCategory;
     }
 
     public void setId(Integer id) {
@@ -83,6 +85,9 @@ public class FilmWorker {
     public void setDeathYear(Integer deathYear) {
         this.deathYear = deathYear;
     }
+
+    public void setFilmworkerCategory(String category) { this.filmworkerCategory = category;}
+
 }
 
 

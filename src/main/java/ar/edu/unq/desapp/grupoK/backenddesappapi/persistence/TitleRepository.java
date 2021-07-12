@@ -22,5 +22,5 @@ public interface TitleRepository extends CrudRepository<Title, Integer> {
 
         //List<Title> findByCategorySerie(List<Title> titles);
 
-        Collection<Title> findAll(Example<Title> example);
+       // Collection<Title> findAll(Example<Title> example);
 }

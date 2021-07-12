@@ -24,9 +24,9 @@ public class PublicReview extends Review {
 
     public PublicReview(String aExtendedDescription, String aSumaryDescription, Double aRating, Boolean aSpoilerAlert, LocalDate aDate,
                         String aSourcePlatform, String aPlatformUserID, String aNickName, String aLenguage, String aGeogrephicPosition,
-                        String type){
+                        String type, Integer id_title){
 
-        super(aExtendedDescription, aSumaryDescription, aRating, aDate, aSourcePlatform, aPlatformUserID, aLenguage);
+        super(aExtendedDescription, aSumaryDescription, aRating, aDate, aSourcePlatform, aPlatformUserID, aLenguage, id_title);
 
         this.spoiler_alert =  aSpoilerAlert;
         this.nickName = aNickName;
