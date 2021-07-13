@@ -49,6 +49,7 @@ public class ReviewService extends AbstractService {
             titleWithID.addReview(aPremiumReview);
             Review savedReview = reviewRepository.save(aPremiumReview);
             titleWithID.setStars();
+            titleWithID.setValoracion();
             titleRepository.save(titleWithID);
 
             return ResponseEntity.ok().body(savedReview);
@@ -76,6 +77,7 @@ public class ReviewService extends AbstractService {
             titleWithID.addReview(aPublicReview);
             Review savedReview = reviewRepository.save(aPublicReview);
             titleWithID.setStars();
+            titleWithID.setValoracion();
             titleRepository.save(titleWithID);
 
             return ResponseEntity.ok().body(savedReview);

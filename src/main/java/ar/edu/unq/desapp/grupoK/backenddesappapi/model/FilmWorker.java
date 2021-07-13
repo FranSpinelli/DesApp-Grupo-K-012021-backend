@@ -19,9 +19,9 @@ public class FilmWorker {
     @Column
     private String filmworkerCategory;
 
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "filmworker_category_id")
-    //private FilmWorkerCategory category;
+    /*@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "filmworker_category_id")
+    private FilmWorkerCategory category;*/
 
     public FilmWorker() {}
 

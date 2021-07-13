@@ -27,29 +27,26 @@ public class Title {
     @Column
     private Double stars;
 
-    private String director;
-
-    private String writer;
-
-    private String actor;
 
     //@ManyToOne(fetch = FetchType.LAZY)
     //@JoinColumn(name = "title_category_id")
     //private TitleCategory category;
 
-
+    
     @OneToMany(fetch = FetchType.LAZY)
     private List<Review> titleReviews;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<FilmWorker> titleFilmworkers;
+
+    public Integer title_valoracion;
 
     public Title() {
     }
 
     public Title(Integer anID, String anOriginalTitle, Boolean anIsAdultIndicator, Integer aStartYear,
-                 Integer anEndYear, Integer aRuntimeMinutesAmount, String aCategory, String style
-                 ) throws InvalidDatesError {
+                 Integer anEndYear, Integer aRuntimeMinutesAmount, String aTitleCategory, String style,
+                 Double stars) throws InvalidDatesError {
 
         YearVerificator yearVerificator = new YearVerificator();
 
@@ -61,12 +58,9 @@ public class Title {
             this.start_year = aStartYear;
             this.end_year = anEndYear;
             this.runtimeMinutes = aRuntimeMinutesAmount;
-            this.category = aCategory;
+            this.category = aTitleCategory;
             this.style = style;
-            this.stars = 0.0;
-            this.director = "";
-            this.writer = "";
-            this.actor = "";
+            this.stars = stars;
             this.titleReviews = new ArrayList<Review>();
             this.titleFilmworkers = new ArrayList<FilmWorker>();
         } else {
@@ -102,17 +96,15 @@ public class Title {
         return this.titleReviews;
     }
 
-    public List<FilmWorker> getFilmworkers(){ return this.titleFilmworkers;}
-
-    public String getCategory() {
+    public String getTitleCategory() {
         return category;
     }
 
-    public String getStyle() {
+    public String getTitle_style() {
         return style;
     }
 
-    public Double getStars() {
+    public Double getTitle_stars() {
         return stars;
     }
 
@@ -140,12 +132,20 @@ public class Title {
         this.start_year = start_year;
     }
 
-    public void setTitleCategory(String category) {
-        this.category = category;
+    public void setTitleValoracion(Integer valoracion){
+        title_valoracion = valoracion;
     }
 
-    public void setTitle_style(String style) {
-        this.style = style;
+    public Integer getValoracion(){
+        return this.title_valoracion;
+    }
+
+    public void setTitleCategory(String titleCategory) {
+        this.category = titleCategory;
+    }
+
+    public void setTitle_style(String title_style) {
+        this.style = title_style;
     }
 
     public void setTitle_stars(Double stars) {
@@ -163,14 +163,17 @@ public class Title {
 
     public void setStars() {
         Double cantStars = 0.0;
-        for(Review review: this.getReviews()){
-            cantStars =+ review.getRating();
+        for (Review review : this.getReviews()) {
+            cantStars = +review.getRating();
         }
         this.setTitle_stars(cantStars);
     }
 
-
-
-
-
+    public void setValoracion(){
+        Integer valoracion = 0;
+        for (Review review:this.getReviews()){
+            valoracion= +review.getLike();
+        }
+        this.setTitleValoracion(valoracion);
+    }
 }

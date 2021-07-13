@@ -7,7 +7,7 @@ INSERT INTO filmworker_categories (id, category_name) VALUES
     (2, 'Writer'),
     (3, 'Actor');
 
-INSERT INTO titles (id, original_title, is_an_adult_film, start_year, end_year, runtime_minutes, category, style, stars, director, writer,actors VALUES
+INSERT INTO titles (id, original_title, is_an_adult_film, start_year, end_year, runtime_minutes, category, style, stars) VALUES
     (1, 'Titanic', true, 1997, null, 200, 'Movie', 'Novela', 4),
     (2, 'Star Wars', false, 1977, null, 260, 'Movie', 'Ciencia Ficcion', 5),
     (3, 'Indiana Jones', false, 1981, null, 180, 'Movie', 'Accion', 5),

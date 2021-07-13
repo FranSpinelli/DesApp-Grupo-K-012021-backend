@@ -49,13 +49,6 @@ public class TitleController {
         return titleService.findAllByCriteria(filters);
     }
 
-    @PostMapping("/title")
-    @ApiOperation(value = "Post a new FilmWorker",
-            notes = "Provide a Title id and the FilmWorker",
-            response = FilmWorker.class)
-    public ResponseEntity addNewFilmWorker(@RequestBody FilmWorkerDTO filmWorkerDTO) {
-        return titleService.addNewFilmworker(filmWorkerDTO);
-    }
 
 
 

@@ -55,29 +55,7 @@ public class TitleService {
     }
 
 
-    @Transactional
-    public ResponseEntity addNewFilmWorker(FilmWorkerDTO filmWorkerDTO) {
 
-        try {
-            filmWorkerDTO.assertEmpty();
-
-            Title titleWithID = findTitleById(filmWorkerDTO.getTitleId());
-
-            //checkForRepeatedPremiumReviewInTitle(titleWithID.getId(), premiumReviewDTO.getPlatformWriterID(), premiumReviewDTO.getSourcePlatform());
-
-            LocalDate currentDate = LocalDate.now();
-            FilmWorker aFilmWorker = new FilmWorker(filmWorkerDTO.getName(), filmWorkerDTO.getSurname(),
-                    filmWorkerDTO.getBirthYear(), filmWorkerDTO.getDeathYear(), filmWorkerDTO.getCategory());
-
-            titleWithID.addFilmWorker(aFilmWorker);
-            Title savedTitle = titleRepository.save(aFilmWorker);
-            titleRepository.save(titleWithID);
-
-            return ResponseEntity.ok().body(savedTitle);
-        } catch (RepeatedReviewException | InexistentTitleWithIDError | EmptyDTOError e) {
-            return ResponseEntity.status(400).body(e.getMessage());
-        }
-    }
 
     public List<Title> findAllByCriteria(LinkedHashMap<String, String> fields) {
 
@@ -116,10 +94,11 @@ public class TitleService {
                     predicates.add(cb.equal(root.get(key), fields.get(key)));
                     break;
                 case "anAdultFilm":
-                    predicates.add(cb.equal(root.get(key), fields.get(key) ));
+                    predicates.add(cb.equal(root.get(key), fields.get(key)));
                     break;
-                //case "rating":
-                //    predicates.add(cb.equal(reviewJoin.get()));
+               /* case "valoracion":
+                    predicates.add(cb.equal(reviewJoin.get("like"), fields.get("like")));
+                    break;*/
 
 
             }
